@@ -216,10 +216,6 @@ class PP_Options_Install {
 					$_url = "plugin-install.php?tab=plugin-information&plugin=$slug&section=changelog&TB_iframe=true&width=600&height=800";
 					$info_url = ( $use_network_admin ) ? network_admin_url($_url) : admin_url($_url);
 					$info_link =  "<span class='update-message'> &bull; <a href='$info_url' class='thickbox'>" . sprintf( __ppw('%s&nbsp;details', 'pp'), $update_info[$slug]['new_version'] ) . '</a></span>';
-
-					$url = pp_plugin_update_url( PPC_BASENAME, $slug ) . '&pp_install=1&TB_iframe=true&height=400';
-					$update_link =  "<span class='pp-update-link'> &bull; <a href='$url' class='thickbox'>" . __ppw('update&nbsp;now', 'pp') . '</a></span>';
-					$alert = ( ! empty($update_info[$slug]['alert']) ) ? " &bull; <span class='pp-red'>{$update_info[$slug]['alert']}</span>" : '';
 				}
 			}
 			

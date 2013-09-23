@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.6.1
-Stable tag: 2.1.20
+Stable tag: 2.1.21
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -47,6 +47,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 	
 == Changelog ==
+
+= 2.1.21 - 23 Sep 2013 =
+* Fixed : Plugins screen indicated update available for Press Permit Core even if current version was installed
+* Fixed : Automatic update for PP Core was not available from Plugins screen (though version update was flagged and could be installed from the plugin info popup or WordPress Updates screen)
+* Fixed : Non-functional "update now" link for PP Core on Permissions > Settings > Install screen (though plugin could be updated through version details popup)
 
 = 2.1.20 - 20 Sep 2013 =
 * Fixed : Could not update plugin from Plugins screen without support key activation (although updates were available from Permissions > Settings > Install since 2.1.15)
@@ -111,7 +116,7 @@ Permissions can be modified from post edit screens, term edit screens, or the pl
 
 == Frequently Asked Questions ==
 
-= How does Press Permit compare to Capability Manager Enhanced, User Role Editor and other role editor plugins? =
+= How does Press Permit compare to [Capability Manager](http://wordpress.org/plugins/capability-manager-enhanced), User Role Editor and other role editor plugins? =
 
 Press Permit's functionality is different from and complementary to a basic role editor / user management plugin.  In terms of permissions, those plugins' primary function is to alter WordPress' definition of the capabilities included in each role.  In other words, they expose lots of knobs for the permissions control which WordPress innately supports. That's a valuable task, and in many cases will be all the role customization you need.  Since WP role definitions are stored in the main WordPress database, they remain even said plugin is deactivated. [Capability Manager Enhanced](http://wordpress.org/plugins/capability-manager-enhanced) is a WordPress role editor designed for integration with Press Permit.
 

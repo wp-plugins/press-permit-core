@@ -96,12 +96,6 @@ class PP_AdminFilters
 		$pp_updates = pp_get_version_info();
 		$busy = false;
 
-		if ( ! empty($pp_updates->response[PPC_BASENAME]) && ppcore_update_enabled() ) {
-			if ( ! empty( $pp_updates->response[PPC_BASENAME]->package ) ) {
-				$plugin_updates->response[PPC_BASENAME] = (object) array( 'slug' => 'press-permit-core', 'new_version' => null );
-			}
-		}
-		
 		foreach( $pp_extensions as $ext ) {
 			if ( ! empty( $pp_updates->response[$ext->basename]->package ) ) {
 				$plugin_updates->response[$ext->basename] = (object) array( 'slug' => $ext->slug );	// Add this PP extension to the WP plugin update notification count
