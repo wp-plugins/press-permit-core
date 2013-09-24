@@ -116,7 +116,7 @@ Permissions can be modified from post edit screens, term edit screens, or the pl
 
 == Frequently Asked Questions ==
 
-= How does Press Permit compare to [Capability Manager](http://wordpress.org/plugins/capability-manager-enhanced), User Role Editor and other role editor plugins? =
+= How does Press Permit compare to Capability Manager Enhanced, User Role Editor and other role editor plugins? =
 
 Press Permit's functionality is different from and complementary to a basic role editor / user management plugin.  In terms of permissions, those plugins' primary function is to alter WordPress' definition of the capabilities included in each role.  In other words, they expose lots of knobs for the permissions control which WordPress innately supports. That's a valuable task, and in many cases will be all the role customization you need.  Since WP role definitions are stored in the main WordPress database, they remain even said plugin is deactivated. [Capability Manager Enhanced](http://wordpress.org/plugins/capability-manager-enhanced) is a WordPress role editor designed for integration with Press Permit.
 
