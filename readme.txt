@@ -49,7 +49,7 @@ Initial production release
 == Changelog ==
 
 = 2.1.22 - 25 Sep 2013 =
-* Feature : Bulk-assign roles or exceptions for multiple users (link on Permissions > Users screen)
+* Feature : Bulk-assign roles or exceptions to multiple users (link on Permissions > Users screen)
 * Fixed : Terms were not included in get_terms() output based on user's access to private posts if terms counts are not shown, or if taxonomy is hierarchical and there are no subterms
 * Fixed : IE styling error on Edit Permissions screen
 * Lang : Added .pot file
