@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.6.1
-Stable tag: 2.1.21
+Stable tag: 2.1.22
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -45,8 +45,15 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 	
 = 2.1.14 =
 Initial production release
-	
+
 == Changelog ==
+
+= 2.1.22 - 25 Sep 2013 =
+* Feature : Bulk-assign roles or exceptions for multiple users (link on Permissions > Users screen)
+* Fixed : Terms were not included in get_terms() output based on user's access to private posts if terms counts are not shown, or if taxonomy is hierarchical and there are no subterms
+* Fixed : IE styling error on Edit Permissions screen
+* Lang : Added .pot file
+* Lang : Updated .po file
 
 = 2.1.21 - 23 Sep 2013 =
 * Fixed : Plugins screen indicated update available for Press Permit Core even if current version was installed
