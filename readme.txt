@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.6.1
-Stable tag: 2.1.22
+Stable tag: 2.1.23
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -47,6 +47,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.23 - 28 Sep 2013 =
+* Fixed : Category/Term exceptions to grant additional access did not affect term listings if parent term was inaccessible
+* Fixed : Add Exceptions UI on Edit Permissions screen inappropriately included "n/a" as a Post Type under some conditions
+* Fixed : Several PHP Strict Notices, mostly for non-static functions
 
 = 2.1.22 - 25 Sep 2013 =
 * Feature : Bulk-assign roles or exceptions to multiple users (link on Permissions > Users screen)

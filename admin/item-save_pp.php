@@ -51,7 +51,7 @@ class PP_ItemSave {
 		self::inherit_parent_exceptions( $item_id, compact( 'via_item_source', 'via_item_type', 'set_parent', 'last_parent', 'is_new' ) );
 	} // end function
 	
-	function inherit_parent_exceptions( $item_id, $args = array() ) {
+	public static function inherit_parent_exceptions( $item_id, $args = array() ) {
 		$defaults = array( 'via_item_source' => '', 'via_item_type' => '', 'set_parent' => '', 'last_parent' => '', 'is_new' => true );
 		extract( array_merge( $defaults, $args ), EXTR_SKIP );
 		

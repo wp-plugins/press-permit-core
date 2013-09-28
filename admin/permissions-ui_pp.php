@@ -49,7 +49,10 @@ class PP_GroupsUI {
 		do_action( 'pp_group_members_ui', $group_id, $agent_type );
 	}
 	
-	public static function draw_type_options( $type_objects, $option_any = false ) {
+	public static function draw_type_options( $type_objects, $args = array() ) {
+		$defaults = array( 'option_any' => false, 'option_na' => false );
+		extract( array_merge( $defaults, $args ), EXTR_SKIP );
+		
 		if ( ! $type_objects ) {
 			//echo "<option>" . __('(none enabled)', 'pp') . '</option>';
 			return;
@@ -64,9 +67,11 @@ class PP_GroupsUI {
 		if ( $option_any )
 			echo "<option value='(all)'>" . __( '(all)', 'pp' ) . '</option>';
 			
-		global $pp_role_defs;
-		if ( $pp_role_defs->direct_roles )
-			echo "<option value='-1'>" . __( 'n/a', 'pp' ) . '</option>';
+		if ( $option_na ) {
+			global $pp_role_defs;
+			if ( $pp_role_defs->direct_roles )
+				echo "<option value='-1'>" . __( 'n/a', 'pp' ) . '</option>';
+		}
 	}
 	
 	public static function _select_clone_ui( $agent ) {
@@ -110,7 +115,7 @@ class PP_GroupsUI {
 		<td>
 		<select name="pp_select_type">
 		<?php 
-		self::draw_type_options( $type_objects );
+		self::draw_type_options( $type_objects, array( 'option_na' => true ) );
 		do_action( 'pp_role_types_dropdown' );
 		?></select></td>
 		
@@ -208,7 +213,7 @@ class PP_GroupsUI {
 		if ( ! empty($args['external']) )
 			$type_objects = array_merge( $type_objects, $args['external'] );
 		
-		self::draw_type_options( $type_objects, true );
+		self::draw_type_options( $type_objects, array( 'option_any' => true ) );
 		do_action( 'pp_exception_types_dropdown', $args );
 
 		?></select></td>
@@ -444,7 +449,8 @@ class PP_GroupsUI {
 		echo '</ul>';
 
 		// --- divs for add Roles / Exceptions ---
-		$first_perm_type = reset( array_keys($perms) );
+		$arr = array_keys($perms);
+		$first_perm_type = reset( $arr );
 		foreach( array_keys($perms) as $perm_type ) {
 			$display_style = ( "pp-add-$perm_type" == $current_tab ) ? '' : ';display:none';
 			echo "<div class='pp-group-box pp-add-permissions pp-add-$perm_type' style='clear:both{$display_style}'>";

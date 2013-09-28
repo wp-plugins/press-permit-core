@@ -135,6 +135,14 @@ class PP_TermCountInterceptor {
 						unset( $terms[$key] );
 			}
 		}
+		
+		if ( $hierarchical && ! $parent && ( count($taxonomies) == 1 ) ) {
+			require_once( PPC_ABSPATH . '/lib/ancestry_lib_pp.php' );
+			$ancestors = PP_Ancestry::get_term_ancestors( reset($taxonomies) ); // array of all ancestor IDs for keyed term_id, with direct parent first
+			$remap_args = array_merge( compact( 'child_of', 'parent', 'exclude' ), array( 'orderby' => 'name', 'col_id' => 'term_id', 'col_parent' => 'parent' ) );
+			PP_Ancestry::remap_tree( $terms, $ancestors, $remap_args );
+		}
+		
 		reset ( $terms );
 		
 		// === Standard WP post-processing for include, fields, number args ===
