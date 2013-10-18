@@ -260,4 +260,3 @@ class PP_Ancestry {
 	} // end function remap_tree
 
 }
-?>

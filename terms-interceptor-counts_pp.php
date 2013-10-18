@@ -174,4 +174,3 @@ class PP_TermCountInterceptor {
 		return $terms;
 	}
 } // end class
-?>

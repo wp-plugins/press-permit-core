@@ -407,4 +407,3 @@ function pp_get_terms_children( $taxonomy, $option_value = '' ) {
 	return PP_Ancestry::get_terms_children( $taxonomy, $option_value );
 }
 */
-?>

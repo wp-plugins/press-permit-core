@@ -94,4 +94,3 @@ function pp_plural_name_from_cap( $type_obj ) {
 	
 	return isset( $type_obj->name ) ? $type_obj->name . 's' : '';
 } 
-?>

@@ -106,4 +106,3 @@ class PP_QueryInterceptorFront {
 		return $pagenum_link;
 	}
 }
-?>

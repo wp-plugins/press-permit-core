@@ -78,4 +78,3 @@ class PP_UpdateWatch {
 	}
 } // end class
 
-?>

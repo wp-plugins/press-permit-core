@@ -508,4 +508,3 @@ public static function remove_exception_items_by_id( $eitem_ids ) {
 }
 	
 } // end class
-?>

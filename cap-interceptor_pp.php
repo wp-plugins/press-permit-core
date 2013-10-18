@@ -376,4 +376,3 @@ class PP_CapInterceptor
 		return false;
 	}
 } // end class PP_Cap_Interceptor
-?>

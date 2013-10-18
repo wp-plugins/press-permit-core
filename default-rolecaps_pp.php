@@ -28,4 +28,3 @@ class PP_Default_Rolecaps {
 		}
 	}
 }	
-?>

@@ -510,4 +510,3 @@ function pp_map_meta_cap( $cap_name, $user_id = 0, $post_id = 0, $args = array()
 
 	return $return;
 }
-?>

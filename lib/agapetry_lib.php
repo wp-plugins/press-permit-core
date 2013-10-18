@@ -172,4 +172,3 @@ function pp_is_mu_plugin( $plugin_path ) {
 function pp_is_network_activated( $plugin_file ) {
 	return ( array_key_exists( $plugin_file, (array) maybe_unserialize( get_site_option( 'active_sitewide_plugins') ) ) );
 }
-?>

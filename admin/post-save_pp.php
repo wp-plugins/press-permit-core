@@ -73,4 +73,3 @@ class PP_PostSave {
 		return compact( 'last_parent', 'set_parent' );
 	}
 } // end class
-?>

@@ -101,4 +101,3 @@ class PP_Clone {
 		return $exception_id;
 	}
 }
-?>

@@ -94,17 +94,7 @@ case 'get_via_type_options':
 		if ( 'associate' != $operation ) {
 			if ( 'assign' != $operation ) {		// 'assign' op only pertains to terms
 				if ( $type_obj = get_post_type_object( $for_type ) ) {
-					// Don't allow anon/all metagroups to have read exceptions for specific posts. That's what post visibility is for.
-					if ( $agent_id && ( 'pp_group' == $agent_type ) ) {
-						$group = pp_get_group( $agent_id );
-						$is_wp_role = ( 'wp_role' == $group->metagroup_type );
-					} else
-						$is_wp_role = false;
-					
-					if ( ! $is_wp_role || ! in_array( $group->metagroup_id, array( 'wp_anon', 'wp_all' ) ) ) {
-						//$types = array( $for_type => sprintf( __( 'selected %s:', 'pp' ), $type_obj->labels->name ) );
-						$types = array( $for_type => __( 'selected:', 'pp' ) );
-					}
+					$types = array( $for_type => __( 'selected:', 'pp' ) );
 				}
 			}
 			
@@ -137,7 +127,8 @@ case 'get_via_type_options':
 	$types = apply_filters( 'pp_exception_via_types', $types, $for_src_name, $for_type, $operation, $mod_type );
 
 	foreach( $types as $val => $title ) {
-		$html .= "<option value='$val'>$title</option>";
+		$class = ( $for_type == $val ) ? ' class="pp-post-object"' : '';
+		$html .= "<option value='$val'$class>$title</option>";
 	}
 
 	break;
@@ -220,4 +211,3 @@ case 'get_item_path' :
 
 if ( $html )
 	echo $html;
-?>

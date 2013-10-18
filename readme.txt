@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.6.1
-Stable tag: 2.1.23
+Tested up to: 3.7
+Stable tag: 2.1.24
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -22,6 +22,7 @@ Core Features include:
   * Control reading access to specified categories [youtube http://www.youtube.com/watch?v=SMnybRf5neY&rel=0&hd=1] 
 
   * Post and term edit screens get a straightforward and uncluttered UI to "enable" or "block" users, roles or groups
+  * Permission Groups integrate with Eyes Only User Access Shortcodes(http://wordpress.org/plugins/eyes-only-user-access-shortcode/) for conditional display of content blocks within a post
 
 Pro [extensions](http://presspermit.com/extensions) are [available](http://presspermit.com/purchase) for [additional access control and features](http://www.youtube.com/playlist?list=PLyelWaWwt1HxuwrZDRBO_c70Tm8A7lfb3):
 	
@@ -47,6 +48,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.24 - 15 Oct 2013 =
+* Compat : Eyes Only User Access Shortcode (requires v 1.6)
+* Change : Allow post reading exceptions to be assigned for the All or Anonymous metagroup, but display a warning regarding best practice
+* Fixed : Cannot add Permission Group membership via Edit User screen if that membership was previously expired by a PP Membership date limit but PP Membership plugin is now inactive
 
 = 2.1.23 - 28 Sep 2013 =
 * Fixed : Category/Term exceptions to grant additional access did not affect term listings if parent term was inaccessible

@@ -65,4 +65,3 @@ class PP_TermsQueryLib {
 
 	}
 } // end class
-?>

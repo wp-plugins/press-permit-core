@@ -182,4 +182,3 @@ function _pp_get_parent_exceptions( $via_item_source, $item_id, $parent_id ) {
 	// Since this is a new object, propagate roles from parent (if any are marked for propagation)
 	return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->ppc_exception_items AS i INNER JOIN $wpdb->ppc_exceptions AS e ON e.exception_id = i.exception_id WHERE e.via_item_source = %s AND i.assign_for = 'children' AND i.item_id = %d", $via_item_source, $parent_id ) );
 }
-?>

@@ -184,11 +184,13 @@ class PP_GroupsUI {
 	public static function _select_exceptions_ui( $type_objects, $taxonomy_objects, $args = array() ) {
 		// Don't allow anon/all metagroups to have read exceptions for specific posts. That's what post visibility is for.
 		if ( isset( $args['agent'] ) && ! empty($args['agent']->metagroup_id) && in_array( $args['agent']->metagroup_id, array( 'wp_anon', 'wp_all' ) ) ) {
+			$is_all_anon = true;
 			foreach( array_keys($type_objects) as $post_type ) { 
 				if ( ! get_object_taxonomies( $post_type ) )
 					unset( $type_objects[$post_type] );
 			}
-		}
+		} else
+			$is_all_anon = false;
 	?>
 		<img id="pp_add_exception_waiting" class="waiting" style="display:none;position:absolute" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) )?>" alt="" />
 		<table id="pp_add_exception">
@@ -244,6 +246,32 @@ class PP_GroupsUI {
 		</tbody>
 		</table>
 		
+		<?php if ( $is_all_anon ):?>
+		<div id="pp-all-anon-warning" class="pp-red" style="display:none;margin-top:10px;margin-bottom:10px">
+		<?php _e( 'Warning: Content hidden by exceptions will be displayed if PP is deactivated. Consider setting a private Visibility on Edit Post screen instead.', 'pp' ); ?>
+		</div>
+
+		<script type="text/javascript">
+		/* <![CDATA[ */
+		jQuery(document).ready( function($) {
+			$(document).on('change','select[name="pp_select_x_for_type"]',function(){
+				$('#pp-all-anon-warning').hide();
+			});
+
+			var handle_anon_warning = function() {
+				if ( ( 'read' == $('select[name="pp_select_x_operation"]').val() ) && ( 'additional' != $('select[name="pp_select_x_mod_type"]').val() ) && ( 'pp-post-object' == $('select[name="pp_select_x_via_type"] option:selected').attr('class') ) ) {
+					$('#pp-all-anon-warning').show();
+				} else {
+					$('#pp-all-anon-warning').hide();
+				}
+			}
+			
+			$(document).on( 'pp_exceptions_ui', handle_anon_warning );
+			$(document).on('change','select[name="pp_select_x_via_type"]', handle_anon_warning );
+		});
+		</script>
+		<?php endif; ?>
+		
 		<div class='pp-ext-promo'>
 		<?php
 		if ( ! defined( 'PPCE_VERSION' ) && pp_get_option('display_extension_hints') ) {	
@@ -287,20 +315,14 @@ class PP_GroupsUI {
 			//if ( ! defined( 'PP_' . strtoupper($type_obj->name) . '_TRUNCATE_EXCEPTIONS_UI' ) )
 			//	$type_obj->_default_query['posts_per_page'] = 999;	// @todo: support paging in item selection metabox
 
-			if ( isset( $type_obj->taxonomies ) ) {
+			if ( post_type_exists( $type_obj->name ) )
 				$metabox_function = "pp_nav_menu_item_post_type_meta_box";
-			} elseif( taxonomy_exists( $type_obj->name ) ) {
+			elseif( taxonomy_exists( $type_obj->name ) )
 				$metabox_function = "pp_nav_menu_item_taxonomy_meta_box";
-			} elseif ( in_array( $type_obj->name, array( 'pp_group', 'pp_net_group' ) ) )
+			elseif ( in_array( $type_obj->name, array( 'pp_group', 'pp_net_group' ) ) )
 				$metabox_function = "pp_nav_menu_item_group_meta_box";
-			/*
-			else {
-				if ( ! function_exists( "pp_nav_menu_item_{$type_obj->name}_meta_box" ) )
-					continue;
-				else
-					$metabox_function = "pp_nav_menu_item_{$type_obj->name}_meta_box";  // used for WPML integration in PP 1.x
-			}
-			*/
+			elseif ( ! $metabox_function = apply_filters( 'pp_item_select_metabox_function', '', $type_obj ) )
+				continue;
 
 			add_meta_box( "select-exception-{$type_obj->name}", sprintf( __('Select %s', 'pp'), $type_obj->labels->name), $metabox_function, 'edit-exceptions', 'side', 'default', $type_obj );
 		}
@@ -1016,4 +1038,3 @@ class PP_GroupsUI {
 		return PP_Users::get_users( $args );
 	}
 }
-?>
