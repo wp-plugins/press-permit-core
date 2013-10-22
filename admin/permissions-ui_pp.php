@@ -182,15 +182,8 @@ class PP_GroupsUI {
 	}
 	
 	public static function _select_exceptions_ui( $type_objects, $taxonomy_objects, $args = array() ) {
-		// Don't allow anon/all metagroups to have read exceptions for specific posts. That's what post visibility is for.
-		if ( isset( $args['agent'] ) && ! empty($args['agent']->metagroup_id) && in_array( $args['agent']->metagroup_id, array( 'wp_anon', 'wp_all' ) ) ) {
-			$is_all_anon = true;
-			foreach( array_keys($type_objects) as $post_type ) { 
-				if ( ! get_object_taxonomies( $post_type ) )
-					unset( $type_objects[$post_type] );
-			}
-		} else
-			$is_all_anon = false;
+		// Discourage anon/all metagroups having read exceptions for specific posts. Normally, that's what post visibility is for.
+		$is_all_anon = ( isset( $args['agent'] ) && ! empty($args['agent']->metagroup_id) && in_array( $args['agent']->metagroup_id, array( 'wp_anon', 'wp_all' ) ) );
 	?>
 		<img id="pp_add_exception_waiting" class="waiting" style="display:none;position:absolute" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) )?>" alt="" />
 		<table id="pp_add_exception">
