@@ -119,8 +119,13 @@ function pp_get_type_object( $src_name, $object_type ) {
 	} elseif( 'term' == $src_name ) {
 		return get_taxonomy( $object_type );
 	} else {
-		if ( $group_type_object = pp_get_group_type_object( $object_type ) )
+		if ( $group_type_object = pp_get_group_type_object( $object_type ) ) {
+			$group_type_object->hierarchical = false;
 			return $group_type_object;
+
+		} elseif ( $type_obj = apply_filters( 'pp_exception_type', null, $src_name, $object_type ) ) {
+			return $type_obj;
+		}
 	}
 }
 

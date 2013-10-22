@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7
-Stable tag: 2.1.24
+Stable tag: 2.1.25
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,13 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.25 - 22 Oct 2013 =
+* Feature : Filter WP image galleries based on attachment reading exceptions
+* Feature : Remove unreadable posts from Nav Menus (previously required PP Collaborative Editing extension)
+* Fixed : Permission Groups was inappropriately displayed as an available Post Type when on "Add Exceptions" tab of Edit Permissions screen
+* Compat : Advanced Custom Fields - don't filter ajax queries
+* API : New filter 'pp_exception_type' for use in applying exceptions to externally defined data sources
 
 = 2.1.24 - 15 Oct 2013 =
 * Compat : Eyes Only User Access Shortcode (requires v 1.6)

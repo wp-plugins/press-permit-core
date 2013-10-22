@@ -137,12 +137,7 @@ case 'get_assign_for_ui':
 	if ( ! is_user_logged_in() ) { echo '<p>' . __('(login timed out)', 'pp') . '</p><div class="pp-checkbox"><input type="checkbox" name="pp_select_for_item" style="display:none"><input type="checkbox" name="pp_select_for_item" style="display:none"></div>'; exit; }
 
 	if ( $via_type ) {
-		if ( $type_obj = pp_get_group_type_object($via_type) )
-			$type_obj->hierarchical = false;
-		elseif ( 'post' == $via_src_name )
-			$type_obj = get_post_type_object( $via_type );
-		else
-			$type_obj = get_taxonomy( $via_type );
+		$type_obj = pp_get_type_object( $via_src_name, $via_type );
 		
 		$html = '<div class="pp-checkbox">'
 			. '<input type="checkbox" id="pp_select_x_item_assign" name="pp_select_x_for_item" checked="checked" value="1" /><label id="pp_x_item_assign_label" for="pp_select_x_item_assign"> ' . sprintf( __('selected %s:', 'pp'), $type_obj->labels->name ) . '</label>'

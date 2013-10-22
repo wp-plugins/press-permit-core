@@ -207,10 +207,11 @@ class PP_GroupsUI {
 		<tbody>
 		<tr>
 		<td>
+
 		<select name="pp_select_x_for_type">
 		<?php
 		unset( $type_objects['attachment'] ); // may be re-added by extension
-		$type_objects = _pp_order_types( apply_filters( 'pp_exception_types', $type_objects ) );
+		$type_objects = apply_filters( 'pp_append_exception_types', _pp_order_types( apply_filters( 'pp_exception_types', $type_objects ) ) );
 		
 		if ( ! empty($args['external']) )
 			$type_objects = array_merge( $type_objects, $args['external'] );
@@ -484,8 +485,7 @@ class PP_GroupsUI {
 			} elseif ( 'exceptions' == $perm_type ) {
 				if ( ! isset( $args['external'] ) )
 					$args['external'] = array();
-				
-				$args['external']['pp_group'] = (object) array( 'name' => 'pp_group', 'labels' => (object) array( 'singular_name' => __( 'Permission Group', 'pp' ), 'name' => __( 'Permission Groups', 'pp' ) ) );
+
 				self::_select_exceptions_ui( array_diff_key( $post_types, array_fill_keys( array( 'topic', 'reply' ), true ) ), $taxonomies, $args );
 			}
 			?>

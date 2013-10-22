@@ -60,6 +60,16 @@ class PP_QueryInterceptor
 			return $clauses;
 
 		if ( defined('DOING_AJAX') && DOING_AJAX ) { // todo: separate function to eliminate redundancy with PP_Find::find_post_type()
+			if ( in_array( $_REQUEST['action'], (array) apply_filters( 'pp_unfiltered_ajax', array() ) ) )
+				return $clauses;
+
+			$nofilter_prefixes = (array) apply_filters( 'pp_unfiltered_ajax_prefix', array( 'acf/' ) );  // Advanced Custom Fields (conflict with action=acf/fields/relationship/query_posts)
+			foreach( $nofilter_prefixes as $prefix ) {
+				if ( 0 === strpos( $_REQUEST['action'], $prefix ) ) {
+					return $clauses;
+				}
+			}
+
 			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'ai1ec_doing_ajax' => 'ai1ec_event' ) );
 			
 			foreach( array_keys($ajax_post_types) as $arg ) {
@@ -395,6 +405,7 @@ class PP_QueryInterceptor
 				
 				$where_arr[$post_type] = PP_Exceptions::add_exception_clauses( $where_arr[$post_type], $required_operation, $post_type, $args );
 			}
+
 		} // end foreach post_type
 		
 		if ( ! $pp_where = pp_implode( 'OR', $where_arr ) )
