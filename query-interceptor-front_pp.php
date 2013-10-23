@@ -5,7 +5,7 @@ class PP_QueryInterceptorFront {
 	var $archives_where = '';
 	
 	public function __construct() {
-		if ( ! pp_is_content_administrator() && ( ! defined('PPCE_VERSION') || version_compare( PPCE_VERSION, '2.1.10', '<' ) ) ) { // previously, this code was in PPCE
+		if ( ! pp_is_content_administrator() && ( ! defined('PPCE_VERSION') || version_compare( PPCE_VERSION, '2.1.9', '>' ) ) ) { // previously, this code was in PPCE
 			require_once( dirname(__FILE__).'/qry-front_non-administrator_pp.php');
 		}
 		
