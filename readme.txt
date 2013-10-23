@@ -50,7 +50,7 @@ Initial production release
 == Changelog ==
 
 = 2.1.27 - 23 Oct 2013 =
-* Fixed : Nav Menu items (front end display) were not filtered
+* Fixed : Nav Menu items (front end display) were not filtered if PP Collaborative Editing extension plugin active
 
 = 2.1.26 - 22 Oct 2013 =
 * Change : Allow page reading exceptions to be assigned for the All or Anonymous metagroup, but display a warning regarding best practice
