@@ -56,7 +56,7 @@ class PP_QueryInterceptorFront {
 		if ( $limit_statuses )
 			$limit_statuses = array_fill_keys( $limit_statuses, true );
 		
-		$args = array( 'object_types' => $post_type, 'source_alias' => 'p', 'skip_teaser' => true, 'limit_statuses' => $limit_statuses );
+		$args = array( 'post_types' => $post_type, 'source_alias' => 'p', 'skip_teaser' => true, 'limit_statuses' => $limit_statuses );
 		
 		$where = 'WHERE 1=1 ' . $query_interceptor->flt_posts_where( $where, $args );
 		

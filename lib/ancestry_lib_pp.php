@@ -146,9 +146,13 @@ class PP_Ancestry {
 		$args = wp_parse_args( $args, $defaults );
 		extract($args, EXTR_SKIP);
 
-		if ( defined( 'PPC_NO_PAGE_REMAP' ) )
+		if ( 'ID' == $col_id ) {
+			if ( ( $child_of && ! defined( 'PPC_FORCE_PAGE_REMAP' ) ) || defined( 'PPC_NO_PAGE_REMAP' ) )
+				$remap_parents = false;
+		} elseif ( ( $child_of && ! defined( 'PPC_FORCE_TERM_REMAP' ) ) || defined( 'PPC_NO_TERM_REMAP' ) ) {
 			$remap_parents = false;
-		
+		}
+
 		if ( $depth < 0 )
 			$depth = 0;
 		
@@ -168,14 +172,6 @@ class PP_Ancestry {
 		$one_if_root = ( $child_of ) ? 0 : 1;
 
 		foreach ( $items as $key => $item ) {
-			if ( ! empty($child_of) ) {
-				if ( ! isset($ancestors[$item->$col_id]) || ! in_array($child_of, $ancestors[$item->$col_id]) ) {
-					unset($items[$key]);
-					
-					continue;
-				}
-			}
-			
 			$parent_id = $item->$col_parent;
 			
 			if ( $remap_parents ) {

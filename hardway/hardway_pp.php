@@ -324,6 +324,9 @@ class PP_Hardway
 			// alternate hook name (WP core already applied get_pages filter)
 			return apply_filters('pp_get_pages', array(), $r);
 		
+		if ( $child_of || $hierarchical )
+			$pages = get_page_children( $child_of, $pages );
+		
 		// restore buffered titles in case they were filtered previously
 		pp_restore_property_array( $pages, $titles, 'ID', 'post_title' );
 		//

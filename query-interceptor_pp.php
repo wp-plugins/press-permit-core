@@ -138,7 +138,7 @@ class PP_QueryInterceptor
 	function flt_posts_where( $where, $args = array() ) {
 		$defaults = array( 	'post_types' => array(),		'source_alias' => false,	 		
 							'skip_teaser' => false,			'retain_status' => false,		/*'or_clause' => '',*/
-							'required_operation' => '',		'alternate_required_ops' => false,	'include_trash' => 0,  'query_contexts' => array(),
+							'required_operation' => '',		'alternate_required_ops' => false,	'include_trash' => 0,  'query_contexts' => array(),  'force_types' => false,
 						);
 		$args = array_merge( $defaults, (array) $args );
 		extract($args, EXTR_SKIP);
@@ -172,7 +172,10 @@ class PP_QueryInterceptor
 			}
 		}
 
-		if ( ! $post_types = array_intersect( $post_types, pp_get_enabled_post_types() ) )
+		if ( ! $force_types )
+			$post_types = array_intersect( $post_types, pp_get_enabled_post_types() );
+
+		if ( ! $post_types )
 			return $where;
 	
 		// If the passed request contains a single status criteria, maintain that status exclusively (otherwise include each available status)
@@ -258,7 +261,7 @@ class PP_QueryInterceptor
 	//
 	function get_posts_where( $args ) {
 		$defaults = array( 	'post_types' => array(),		'source_alias' => false,		'src_table' => '',			'apply_term_restrictions' => true, 		'include_trash' => 0,
-							'required_operation' => '',		'limit_statuses' => false,		'skip_teaser' => false,		'query_contexts' => array(), /*'omit_owner_clause' => false */ );
+							'required_operation' => '',		'limit_statuses' => false,		'skip_teaser' => false,		'query_contexts' => array(), 			'force_types' => false,  /*'omit_owner_clause' => false */ );
 		$args = array_merge( $defaults, (array) $args );
 		extract($args, EXTR_SKIP);
 
@@ -271,7 +274,9 @@ class PP_QueryInterceptor
 			$args['src_table'] = $src_table;
 		}
 
-		$post_types = array_intersect( (array) $post_types, pp_get_enabled_post_types() );
+		if ( ! $force_types )
+			$post_types = array_intersect( (array) $post_types, pp_get_enabled_post_types() );
+		
 		$tease_otypes = array_intersect( $post_types, $this->_get_teaser_post_types($post_types, $args) );
 		
 		if ( ! $required_operation ) {
@@ -412,8 +417,11 @@ class PP_QueryInterceptor
 			$pp_where = '1=1';
 
 		// term restrictions which apply to any post type
-		if ( $apply_term_restrictions )
-			$pp_where .= PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true ) );
+		if ( $apply_term_restrictions ) {
+			if ( $term_exc_where = PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true ) ) ) {
+				$pp_where = "( $pp_where ) $term_exc_where";
+			}
+		}
 		
 		if ( $pp_where )
 			$pp_where = " AND ( $pp_where )";

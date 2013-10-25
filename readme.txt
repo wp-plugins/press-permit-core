@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7
-Stable tag: 2.1.27
+Stable tag: 2.1.28
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -49,8 +49,15 @@ Initial production release
 
 == Changelog ==
 
+= 2.1.28 - 24 Oct 2013 =
+* Fixed : Propagating Category Exceptions were not correctly assigned to subcategories
+* Fixed : Universal Category Exceptions (for all post types) were not applied correctly in some configurations
+* Fixed : Category widget (and other get_terms output) was inconsistent with post reading access in some configurations
+* Compat : JC Submenu and other plugin / theme code which requires get_pages() or get_terms() to order subpages or subcategories immediately after their parent
+* Fixed : Post types not enabled for PP Filtering were stripped out of Nav Menus on the front end
+
 = 2.1.27 - 23 Oct 2013 =
-* Fixed : Nav Menu items (front end display) were not filtered if PP Collaborative Editing extension plugin active
+* Fixed : Nav Menu items (front end display) were not filtered
 
 = 2.1.26 - 22 Oct 2013 =
 * Change : Allow page reading exceptions to be assigned for the All or Anonymous metagroup, but display a warning regarding best practice

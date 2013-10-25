@@ -22,15 +22,13 @@ class PP_ItemSave {
 		if ( $posted_exceptions && ! $disallow_manual_entry && $can_assign_roles ) {
 			foreach( array_keys($posted_exceptions) as $for_item_type ) {
 				$_for_type = ( '(all)' == $for_item_type ) ? '' : $for_item_type;
-				
-				if ( $_for_type ) {
-					if ( ( 'post' == $for_item_source ) && ! post_type_exists( $_for_type ) )
-						continue;
-					
-					if ( ( 'term' == $for_item_source ) && ! taxonomy_exists( $_for_type ) )
-						continue;
-				}
 
+				if ( $_for_type && ( 'post' == $for_item_source ) && ! post_type_exists( $_for_type ) )
+					continue;
+
+				if ( ( 'term' == $for_item_source ) && ! taxonomy_exists( $_for_type ) )
+					continue;
+				
 				foreach( array_keys($posted_exceptions[$for_item_type]) as $op ) {
 					if ( ! _pp_can_set_exceptions( $op, $for_item_type, compact( 'via_item_source', 'via_item_type', 'item_id', 'for_item_source' ) ) )
 						continue;

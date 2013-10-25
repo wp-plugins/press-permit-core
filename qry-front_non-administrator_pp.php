@@ -66,7 +66,7 @@ class PP_QueryInterceptorFront_NonAdmin {
 		$clauses['fields'] = 'ID';
 		$clauses['where'] = "AND post_type IN ( '" . implode( "','", $post_types ) . "' ) AND ID IN ( '" . implode("','", $post_ids ) . "') AND post_status IN ('" . implode( "','", $stati ) . "')";
 		
-		$clauses = apply_filters( 'pp_posts_clauses', $clauses, array( 'object_types' => $post_types, 'skip_teaser' => true, 'required_operation' => 'read' ) );
+		$clauses = apply_filters( 'pp_posts_clauses', $clauses, array( 'post_types' => $post_types, 'skip_teaser' => true, 'required_operation' => 'read', 'force_types' => true ) );
 		$okay_ids = $wpdb->get_col( "SELECT {$clauses['distinct']} ID FROM $wpdb->posts {$clauses['join']} WHERE 1=1 {$clauses['where']}" );
 		
 		foreach( $post_types as $_post_type ) {
@@ -85,4 +85,3 @@ class PP_QueryInterceptorFront_NonAdmin {
 		return $items;
 	}
 }
-?>
