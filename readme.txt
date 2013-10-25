@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7
-Stable tag: 2.1.28
+Stable tag: 2.1.29
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,9 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.29 - 25 Oct 2013 =
+* Fixed : CMS Tree Page View - could not expand page tree (since 2.1.28)
 
 = 2.1.28 - 24 Oct 2013 =
 * Fixed : Propagating Category Exceptions were not correctly assigned to subcategories
