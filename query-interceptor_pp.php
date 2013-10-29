@@ -362,7 +362,7 @@ class PP_QueryInterceptor
 				if ( $include_trash ) {
 					if ( $type_obj = get_post_type_object($post_type) ) {
 						if ( ( ( 'edit_post' == $meta_cap ) && ! empty( $pp_current_user->allcaps[$type_obj->cap->edit_posts] ) ) || ( ( 'delete_post' == $meta_cap ) && ! empty( $pp_current_user->allcaps[$type_obj->cap->delete_posts] ) ) ) {
-							if ( ! empty( $pp_current_user->allcaps[$type_obj->cap->delete_others_posts] ) )
+							if ( ! isset($type_obj->cap->delete_others_posts) || ! empty( $pp_current_user->allcaps[$type_obj->cap->delete_others_posts] ) )
 								$have_site_caps['user'] []= 'trash';
 							else
 								$have_site_caps['owner'] []= 'trash';

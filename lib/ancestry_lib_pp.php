@@ -223,7 +223,7 @@ class PP_Ancestry {
 						}	
 					}
 				}
-			} elseif ( $parent_id && ( $depth == 1 ) && ! isset($filtered_items_by_id[$parent_id]) ) { // end if not skipping page parent remap
+			} elseif ( $parent_id && ( $depth == 1 ) && ( $parent_id != $child_of ) && ! isset($filtered_items_by_id[$parent_id]) ) { // end if not skipping page parent remap
 				unset($items[$key]); // Walker will not strip this item out based on wp_list_pages depth argument if its parent is missing
 
 				continue;
