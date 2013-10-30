@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7
-Stable tag: 2.1.30
+Stable tag: 2.1.31
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,9 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.31 - 30 Oct 2013 =
+* Fixed : Terms were not included in get_terms() output based on user's access to private posts (since 2.1.28)
 
 = 2.1.30 - 29 Oct 2013 =
 * Compat : WP 3.7 - Non-administrators could not access revisions viewer for unpublished posts

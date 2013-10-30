@@ -112,7 +112,7 @@ class PP_TermCountInterceptor {
 			if ( ! is_admin() || ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
 				if ( $hide_empty || ! empty( $args['actual_args']['hide_empty'] ) ) {
 					// need to tally for all terms in case some were hidden by core function due to lack of public posts
-					$all_terms = get_terms( reset($taxonomies), array( 'fields' => 'all', 'pp_no_filter' => true ) );
+					$all_terms = get_terms( reset($taxonomies), array( 'fields' => 'all', 'pp_no_filter' => true, 'hide_empty' => false ) );
 					PP_TermsQueryLib::tally_term_counts( $all_terms, reset($taxonomies), compact( 'pad_counts', 'skip_teaser', 'post_type' ) );
 
 					foreach ( array_keys($terms) as $k ) {
@@ -133,7 +133,7 @@ class PP_TermCountInterceptor {
 			if ( $hierarchical ) {
 				foreach( $taxonomies as $taxonomy ) {
 					if ( empty($all_terms) || ( count($taxonomies) > 1 ) )
-						$all_terms = get_terms( $taxonomy, array( 'fields' => 'all', 'pp_no_filter' => true ) );
+						$all_terms = get_terms( $taxonomy, array( 'fields' => 'all', 'pp_no_filter' => true, 'hide_empty' => false ) );
 					
 					// Remove empty terms, but only if their descendants are all empty too.
 					foreach ( $terms as $k => $term ) {
