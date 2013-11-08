@@ -120,7 +120,7 @@ class PP_ItemExceptionsUI {
 				) );
 
 				$pp_agents_ui = pp_init_agents_ui();
-				$pp_agents_ui->agents_ui( $agent_type, array(), "{$op}-{$for_item_type}-{$agent_type}", array(), $args );
+				$pp_agents_ui->agents_ui( $agent_type, array(), "{$op}:{$for_item_type}:{$agent_type}", array(), $args );
 				echo '</div>';
 				echo '</div>';
 					

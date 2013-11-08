@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.7
-Stable tag: 2.1.31
+Tested up to: 3.7.1
+Stable tag: 2.1.32
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.32 - 8 Nov 2013 =
+* Fixed : Exceptions could not be assigned on Edit Post screen if post type name contains a dash
+* Change : If PP_GROUP_RESTRICTIONS constant is defined, allow Post editing Exceptions with "Not these" or "Only these" adjustment to be assigned to custom groups
+* Change : Revised extension installation/update code to more closely mirror the core WP process; may resolve some rare installation errors
 
 = 2.1.31 - 30 Oct 2013 =
 * Fixed : Terms were not included in get_terms() output based on user's access to private posts (since 2.1.28)
