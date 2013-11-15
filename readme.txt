@@ -56,7 +56,7 @@ Initial production release
 * Change : If PP File URL Filter is not active, Reading Exceptions metabox on Edit Media screen displays notice about direct file access
 * Change : Display warning if a supplemental role assignment will use default capabilities due to invalid customization of the role definition 
 * Change : Include PP Group Membership in Permissions > Settings > Help > configuration data upload by default
-* Fixed : Fatal error if pp_get_groups_for_user() is called with a metagroup_type argument
+* Fixed : Database error if external code calls pp_get_groups_for_user() with a metagroup_type argument
 * Fixed : Fatal error on Permissions > Settings > Help > configuration data upload if RS/PP import data enabled and PP Import version number was deleted from database
 
 = 2.1.32 - 8 Nov 2013 =
