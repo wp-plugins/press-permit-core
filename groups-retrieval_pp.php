@@ -152,14 +152,14 @@ class PP_GroupRetrieval {
 			return array();
 		}
 		
-		if ( $cols == 'all' )
+		if ( ( $cols == 'all' ) || ! empty($metagroup_type) )
 			$join = apply_filters( 'pp_get_groups_for_user_join', "INNER JOIN $groups_table AS g ON $members_table.group_id = g.ID", $user_id, $args );
 		else
 			$join = '';
 
 		if ( 'any' == $status ) { $status = ''; }
 		$status_clause = ( $status ) ? $wpdb->prepare( "AND status = %s", $status ) : '';
-		$metagroup_clause = ( ! empty($metagroup_type) ) ? $wpdb->prepare( "AND $groups_table.metagroup_type = %s", $metagroup_type ) : '';
+		$metagroup_clause = ( ! empty($metagroup_type) ) ? $wpdb->prepare( "AND g.metagroup_type = %s", $metagroup_type ) : '';
 		$user_id = (int) $user_id;
 		
 		$user_groups = array();

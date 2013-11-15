@@ -31,7 +31,6 @@ class PP_User extends WP_User {
 		if ( ! empty($args['filter_usergroups']) && ! empty($args['filter_usergroups'][$agent_type]) )  // assist group admin
 			$this->groups[$agent_type] = array_intersect_key($this->groups[$agent_type], $args['filter_usergroups'][$agent_type]);
 
-
 		$this->site_roles = $this->get_site_roles();	// @todo: eliminate redundant call - get_user_typecast_caps()
 
 		add_filter('map_meta_cap', array(&$this, 'reinstate_caps'), 99, 3);

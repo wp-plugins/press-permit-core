@@ -619,7 +619,7 @@ class PP_GroupsUI {
 					$_arr = $type_roles[$src_name][$object_type];
 					ksort( $_arr );
 					foreach( array_keys($_arr) as $role_name ) {
-						$role_title = ppc_get_role_title( $role_name );
+						$role_title = ppc_get_role_title( $role_name, array( 'include_warnings' => true ) );
 						
 						if ( $read_only ) {
 							$inputs []= "<label>$role_title</label>";

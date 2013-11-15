@@ -5,7 +5,7 @@
  * Description: Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
  * Author:      Agapetry Creations LLC
  * Author URI:  http://agapetry.com/
- * Version:     2.1.32
+ * Version:     2.1.33
  * Text Domain: pp
  * Domain Path: /languages/
  * Min WP Version: 3.4
@@ -62,7 +62,7 @@ if ( defined( 'PPC_FOLDER' ) ) {
 			define( 'PPC_ABSPATH', WP_CONTENT_DIR . '/plugins/' . PPC_FOLDER );
 	
 		if ( ! ppc_early_exit() ) {
-			define( 'PPC_VERSION', '2.1.32' );
+			define( 'PPC_VERSION', '2.1.33' );
 			define( 'PPC_DB_VERSION', '2.0.1' );
 
 			global $pp_min_ext_version;
@@ -74,7 +74,7 @@ if ( defined( 'PPC_FOLDER' ) ) {
 				'pp-content-teaser' => '2.0.3-beta',
 				'pp-custom-post-statuses' => '2.1.5-beta',
 				'pp-file-url-filter' => '2.1.3-beta',
-				'pp-import' => '2.0.8-beta',
+				'pp-import' => '2.1.4',
 				'pp-membership' => '2.0-beta',
 				'pp-for-wpml' => '2.0.1-beta',
 			);

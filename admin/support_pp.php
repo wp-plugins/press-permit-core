@@ -190,8 +190,8 @@ function _pp_support_upload( $args = array() ) {
 		if ( ! empty( $ok['pp_imports'] ) ) {
 			if ( $ppi_ver = (array) get_option( 'ppi_version' ) ) {
 				$prefix = ( PP_MULTISITE ) ? $wpdb->base_prefix : $wpdb->prefix;
-				
-				if ( version_compare( $ppi_ver['version'], '2.0.1-beta', '>=' ) ) {
+
+				if ( $wpdb->query( "SHOW COLUMNS FROM $wpdb->ppi_imported LIKE 'source_tbl'" ) ) {
 					if ( defined( 'PPI_LEGACY_UPLOAD' ) && $wpdb->query( "SHOW COLUMNS FROM $wpdb->ppi_imported LIKE 'source_table'" ) )
 						$extra_cols = ", REPLACE( source_table, '$prefix', '' ), REPLACE( import_table, '$prefix', '' )";
 					else

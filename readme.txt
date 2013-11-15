@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7.1
-Stable tag: 2.1.32
+Stable tag: 2.1.33
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,16 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.33 - 15 Nov 2013 =
+* Fixed : Improper filtering of get_tags() function
+* Change : By default, Post Tag is enabled as a filtered taxonomy. Previously, it was default disabled yet front end tag filtering was implicitly forced.
+* Change : If PP_GROUP_RESTRICTIONS constant is defined, allow the Editing Exceptions metabox on Edit Post screen to block Groups
+* Change : If PP File URL Filter is not active, Reading Exceptions metabox on Edit Media screen displays notice about direct file access
+* Change : Display warning if a supplemental role assignment will use default capabilities due to invalid customization of the role definition 
+* Change : Include PP Group Membership in Permissions > Settings > Help > configuration data upload by default
+* Fixed : Fatal error if pp_get_groups_for_user() is called with a metagroup_type argument
+* Fixed : Fatal error on Permissions > Settings > Help > configuration data upload if RS/PP import data enabled and PP Import version number was deleted from database
 
 = 2.1.32 - 8 Nov 2013 =
 * Fixed : Exceptions could not be assigned on Edit Post screen if post type name contains a dash
