@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7.1
-Stable tag: 2.1.33
+Stable tag: 2.1.34
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,9 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.34 - 2 Dec 2013 =
+* Fixed : With PP File URL Filter active, attachments to private posts were not visible unless user had editing capabilities (since 2.1.30)
 
 = 2.1.33 - 15 Nov 2013 =
 * Fixed : Improper filtering of get_tags() function
