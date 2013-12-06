@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7.1
-Stable tag: 2.1.34
+Stable tag: 2.1.35
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,14 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.35 - 6 Dec 2013 =
+* Fixed : When a Page exception was changed from "also subpages" to "selected only", subpage exceptions were retained but became inaccessable on Edit User/Group screen
+* DB : Update to 2.1.35 exposes propagated exceptions whose base exception is deleted or no longer marked for propagation (and logs them to option ppc_exposed_eitem_orphans)
+* Fixed : Page exceptions were propagated to attachments
+* DB : Update to 2.1.35 deletes invalid / redundant attachment exceptions
+* DB : Update to 2.1.35 exposes propagated attachment Edit Attachment exceptions
+* DB : Update to 2.1.35 exposes propagated attachment "Read Attachment - Only These" exceptions
 
 = 2.1.34 - 2 Dec 2013 =
 * Fixed : With PP File URL Filter active, attachments to private posts were not visible unless user had editing capabilities (since 2.1.30)

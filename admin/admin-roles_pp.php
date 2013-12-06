@@ -63,7 +63,7 @@ class PP_AdminRoles {
 					$role_caption = $pp_role_defs->pattern_roles[ $arr_name[0] ]->labels->$caption_prop;
 					
 					if ( $include_warnings && isset( $wp_roles->role_names[ $arr_name[0] ] ) && ! $pp_cap_caster->is_valid_pattern_role( $arr_name[0] ) ) {
-						$warning = '<span class="pp-red">' . sprintf( __( '(using default capabilities due to invalid %s definition)', 'pp' ), $wp_roles->role_names[ $arr_name[0] ] ) . '</span>';
+						$warning = '<span class="pp-red"> ' . sprintf( __( '(using default capabilities due to invalid %s definition)', 'pp' ), $wp_roles->role_names[ $arr_name[0] ] ) . '</span>';
 					}
 				} elseif ( $slug_fallback )
 					$role_caption = $arr_name[0];

@@ -46,6 +46,13 @@ class PP_ItemSave {
 			}
 		}
 
+		if ( ( 'post' == $via_item_source ) && ( 'post' == $for_item_source ) ) {
+			if ( $post = get_post( $item_id ) ) {
+				if ( 'attachment' == $post->post_type )  // don't propagate page exceptions to attachments
+					return;
+			}
+		}
+		
 		self::inherit_parent_exceptions( $item_id, compact( 'via_item_source', 'via_item_type', 'set_parent', 'last_parent', 'is_new' ) );
 	} // end function
 	
