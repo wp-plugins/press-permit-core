@@ -22,7 +22,7 @@ Core Features include:
   * Control reading access to specified categories [youtube http://www.youtube.com/watch?v=SMnybRf5neY&rel=0&hd=1] 
 
   * Post and term edit screens get a straightforward and uncluttered UI to "enable" or "block" users, roles or groups
-  * Permission Groups integrate with Eyes Only User Access Shortcodes(http://wordpress.org/plugins/eyes-only-user-access-shortcode/) for conditional display of content blocks within a post
+  * Permission Groups integrate with [Eyes Only User Access Shortcodes](http://wordpress.org/plugins/eyes-only-user-access-shortcode/) for conditional display of content blocks within a post
 
 Pro [extensions](http://presspermit.com/extensions) are [available](http://presspermit.com/purchase) for [additional access control and features](http://www.youtube.com/playlist?list=PLyelWaWwt1HxuwrZDRBO_c70Tm8A7lfb3):
 	
