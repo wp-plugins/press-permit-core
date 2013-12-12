@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7.1
-Stable tag: 2.1.35
+Stable tag: 2.1.36
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,15 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.36 - 11 Dec 2013 =
+* Fixed : After saving changes to Universal Category Exceptions, redirect was back to Edit Category (Post Exceptions)
+* Change : Edit Category screen - additional inline note regarding Universal Category Exceptions
+* Fixed : Pro - Nav Menu Management exceptions were not not applied correctly in some configurations (also requires PP Collaborative Editing 2.1.14)
+* Fixed : Pro - Term Management and Association exceptions assigned via Edit Category screen were not stored correctly (also requires PP Collaborative Editing 2.1.14)
+* Fixed : Pro - Editors excluded from managing specific categories could still edit them via direct URL
+* Fixed : Pro - On Edit Category screen, exceptions metabox for term management was incorrectly captioned as "Post Management"
+* Change : Pro - On Edit Permissions screen, simplify captioning for currently stored term management and association exceptions
 
 = 2.1.35 - 6 Dec 2013 =
 * Fixed : When a Page exception was changed from "also subpages" to "selected only", subpage exceptions were retained but became inaccessable on Edit User/Group screen

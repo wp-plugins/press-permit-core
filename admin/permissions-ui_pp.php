@@ -819,6 +819,8 @@ class PP_GroupsUI {
 	
 						if ( 'assign' == $operation )
 							$op_caption = ( $for_type ) ? sprintf( __('%1$s (%2$s: %3$s)', 'pp'), $operation_obj->label, $for_type_obj->labels->singular_name, $via_type_caption ) : sprintf( __('%1$s %2$s %3$s', 'pp'), $operation_obj->label, $via_type_caption, $for_type_obj->labels->singular_name );
+						elseif ( in_array( $operation, array( 'manage', 'associate' ) ) )
+							$op_caption = sprintf( __('%1$s %2$s', 'pp'), $operation_obj->label, $via_type_caption );
 						else
 							$op_caption = sprintf( __('%1$s %2$s', 'pp'), $operation_obj->label, $for_type_obj->labels->singular_name );
 						
@@ -879,7 +881,7 @@ class PP_GroupsUI {
 
 								echo "<div class='pp-role-terms-wrapper pp-role-terms-{$via_type}'>";
 
-								if ( 'term' == $via_src ) {
+								if ( ( 'term' == $via_src ) && ! in_array( $operation, array( 'manage', 'associate' ) ) ) {
 									if ( taxonomy_exists( $via_type ) ) {
 										// "Categories:"
 										$tx_obj = get_taxonomy($via_type);

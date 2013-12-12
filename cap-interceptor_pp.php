@@ -215,7 +215,9 @@ class PP_CapInterceptor
 				}
 			} else {
 				if ( $params = apply_filters( 'pp_user_has_cap_params', array(), $orig_reqd_caps, compact( 'item_id', 'orig_cap', 'item_type' ) ) ) {
-					$params['item_id'] = pp_get_post_id();
+					if ( empty($params['item_id']) )
+						$params['item_id'] = ( $item_id ) ? $item_id : pp_get_post_id();
+
 					$wp_sitecaps = apply_filters( 'pp_user_has_caps', $wp_sitecaps, $orig_reqd_caps, $params );
 					extract( array_diff_key( $params, array_fill_keys( array( 'wp_sitecaps', 'pp_current_user', 'orig_cap', 'orig_reqd_caps' ), true ) ) );
 				}
