@@ -182,7 +182,7 @@ class PP_TermsInterceptor {
 			
 				// include terms were specified for all post types
 				if ( count($taxonomies) == 1 )
-					$clauses['where'] .= " AND tt.term_taxonomy_id IN ('" . implode( "','", array_unique($included_ttids) ) . "')";
+					$clauses['where'] = " ( " . $clauses['where'] . " ) AND tt.term_taxonomy_id IN ('" . implode( "','", array_unique($included_ttids) ) . "')";
 				else
 					$clauses['where'] .= " AND ( tt.taxonomy != '$taxonomy' OR tt.term_taxonomy_id IN ('" . implode( "','", array_unique($included_ttids) ) . "') )";
 			}

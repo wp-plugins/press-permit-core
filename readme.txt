@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.7.1
-Stable tag: 2.1.36
+Stable tag: 2.1.37
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.37 - 14 Dec 2013 =
+* Fixed : Pro - Assignment of Tags and other hierarchical taxonomies was not filtered based on "Only these" or "Not these" exceptions (also requires PP Collaborative Editing 2.1.15)
+* Fixed : PHP warning when uploading configuration data from a network installation
+* Doc : Corrected code comment for exceptions array in pp-user.php
 
 = 2.1.36 - 11 Dec 2013 =
 * Fixed : After saving changes to Universal Category Exceptions, redirect was back to Edit Category (Post Exceptions)
