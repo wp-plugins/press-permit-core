@@ -153,21 +153,31 @@ class PP_Exceptions {
 	public static function add_term_restrictions_clause( $required_operation, $post_type, $src_table, $args = array() ) {		
 		global $wpdb, $pp_current_user;
 		
+		extract( array_merge( array( 'merge_additions' => false ), $args ), EXTR_SKIP );
+		
 		$where = '';
 		$excluded_ttids = array();
 		
 		$tx_args = ( $post_type ) ? array( 'object_type' => $post_type ) : array();
 		
 		foreach( pp_get_enabled_taxonomies( $tx_args ) as $taxonomy ) {
+			$tx_additional_ids = ( $merge_additions ) ? $pp_current_user->get_exception_terms( $required_operation, 'additional', $post_type, $taxonomy, array( 'status' => '', 'merge_universals' => true ) ) : array();
+
 			// post may be required to be IN a term set for one taxonomy, and NOT IN a term set for another taxonomy
 			foreach( array( 'include', 'exclude' ) as $mod ) {
 				if ( $tt_ids = $pp_current_user->get_exception_terms( $required_operation, $mod, $post_type, $taxonomy, $args ) ) {
 					if ( 'include' == $mod ) {
+						if ( $tx_additional_ids )
+							$tt_ids = array_merge( $tt_ids, $tx_additional_ids );
+						
 						$term_include_clause = apply_filters( 'pp_term_include_clause', "$src_table.ID IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ('" . implode( "','", $tt_ids ) . "') )", compact( 'tt_ids', 'src_table' ) );
 						$where .= " AND ( $term_include_clause )";
 						
 						continue 2;
 					} else {
+						if ( $tx_additional_ids )
+							$tt_ids = array_diff( $tt_ids, $tx_additional_ids );
+
 						$excluded_ttids = array_merge( $excluded_ttids, $tt_ids );
 					}
 				}

@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.7.1
-Stable tag: 2.1.37
+Tested up to: 3.8
+Stable tag: 2.1.38
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,18 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.38 - 18 Dec 2013 =
+* Compat : WP 3.8 - styling corrections on Edit Permissions, Settings screens
+* Fixed : Post access blocked per-Role by a Universal Taxonomy Exception could not be enabled per-user or per-group by another Universal Taxonomy Exception
+* Fixed : When a page is re-saved to a different parent, exceptions propagated to subpages from the previous parent were not cleared
+* Fixed : When a page is re-saved to a different parent, exceptions from the new parent were not assigned to subpages
+* Fixed : Pro - Customization of role capabilities for stock WP roles was not reflected in supplemental role assignment (since 2.1.33)
+* Fixed : Pro - Editing exceptions remained partially active even if corresponding pro extensions disabled
+* Feature : Pro - Support list_all_posts, list_all_pages, etc. capabilities (also requires PP Collaborative Editing 2.1.16)
+* Change : Additional explanatory captions on Edit Permissions screen
+* Change : Link on Edit Permissions screen to reload with propagated exceptions displayed
+* Fixed : PHP Notices for non-static function definitions
 
 = 2.1.37 - 14 Dec 2013 =
 * Fixed : Pro - Assignment of Tags and other hierarchical taxonomies was not filtered based on "Only these" or "Not these" exceptions (also requires PP Collaborative Editing 2.1.15)
