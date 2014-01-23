@@ -312,4 +312,3 @@ if ( pp_bulk_roles_enabled() ) {
 
 </div></div> <?php // #pp_cred_wrap, #group-profile-page ?>
 <?php
-?>
