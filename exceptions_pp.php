@@ -153,10 +153,12 @@ class PP_Exceptions {
 	public static function add_term_restrictions_clause( $required_operation, $post_type, $src_table, $args = array() ) {		
 		global $wpdb, $pp_current_user;
 		
-		extract( array_merge( array( 'merge_additions' => false ), $args ), EXTR_SKIP );
+		extract( array_merge( array( 'merge_additions' => false, 'exempt_post_types' => array() ), $args ), EXTR_SKIP );
 		
 		$where = '';
 		$excluded_ttids = array();
+		
+		$type_exemption_clause = ( $exempt_post_types ) ? " OR $src_table.post_type IN ('" . implode( "','", $exempt_post_types ) . "')" : '';
 		
 		$tx_args = ( $post_type ) ? array( 'object_type' => $post_type ) : array();
 		
@@ -171,7 +173,7 @@ class PP_Exceptions {
 							$tt_ids = array_merge( $tt_ids, $tx_additional_ids );
 						
 						$term_include_clause = apply_filters( 'pp_term_include_clause', "$src_table.ID IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ('" . implode( "','", $tt_ids ) . "') )", compact( 'tt_ids', 'src_table' ) );
-						$where .= " AND ( $term_include_clause )";
+						$where .= " AND ( $term_include_clause $type_exemption_clause )";
 						
 						continue 2;
 					} else {
@@ -185,7 +187,7 @@ class PP_Exceptions {
 		}
 		
 		if ( $excluded_ttids ) {
-			$where .= " AND $src_table.ID NOT IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ('" . implode( "','", $excluded_ttids ) . "') )";
+			$where .= " AND ( $src_table.ID NOT IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ('" . implode( "','", $excluded_ttids ) . "') ) $type_exemption_clause )";
 		}
 			
 		return $where;

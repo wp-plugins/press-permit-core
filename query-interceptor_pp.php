@@ -418,7 +418,7 @@ class PP_QueryInterceptor
 
 		// term restrictions which apply to any post type
 		if ( $apply_term_restrictions ) {
-			if ( $term_exc_where = PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true, 'merge_additions' => true ) ) ) {
+			if ( $term_exc_where = PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true, 'merge_additions' => true, 'exempt_post_types' => $tease_otypes ) ) ) {
 				$pp_where = "( $pp_where ) $term_exc_where";
 			}
 		}

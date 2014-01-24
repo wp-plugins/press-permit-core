@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.8
-Stable tag: 2.1.41
+Stable tag: 2.1.42
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,10 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.42 - 24 Jan 2014 =
+* Compat : PP Content Teaser - Teaser was not applied for posts listing when universal category exceptions are active
+* Compat : PP Content Teaser - Teaser was not applied for single post display under some configurations
 
 = 2.1.41 - 23 Jan 2014 =
 * Fixed : Read access to Media was blocked unexpectedly under some configurations
