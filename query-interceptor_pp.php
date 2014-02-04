@@ -70,7 +70,7 @@ class PP_QueryInterceptor
 				}
 			}
 
-			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'ai1ec_doing_ajax' => 'ai1ec_event' ) );
+			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'ai1ec_doing_ajax' => 'ai1ec_event', 'tribe_calendar' => 'tribe_events' ) );
 			
 			foreach( array_keys($ajax_post_types) as $arg ) {
 				if ( ! empty( $_REQUEST[$arg] ) || ( $arg == $_REQUEST['action'] ) ) {

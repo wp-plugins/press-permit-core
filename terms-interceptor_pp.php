@@ -29,7 +29,7 @@ class PP_TermsInterceptor {
 		if ( $terms ) {
 			global $pp_current_user;
 		
-			if ( ! did_action( 'wp_head' ) )
+			if ( defined( 'PP_GET_TERMS_SHORTCUT' ) && ! did_action( 'wp_head' ) )  // experimental theme-specific workaround
 				return $terms;
 		
 			if ( ! $_post = get_post( $post_id ) )

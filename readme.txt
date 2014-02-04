@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.8
-Stable tag: 2.1.42
+Tested up to: 3.8.1
+Stable tag: 2.1.43
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,10 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.43 - 4 Feb 2014 =
+* Fixed : Posts inappropriately hidden from anonymous users on some installations
+* Compat : The Events Calendar Pro - Ajax calendar refresh returned no entries
 
 = 2.1.42 - 24 Jan 2014 =
 * Compat : PP Content Teaser - Teaser was not applied for posts listing when universal category exceptions are active
