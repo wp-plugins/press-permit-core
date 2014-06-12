@@ -49,6 +49,9 @@ Initial production release
 
 == Changelog ==
 
+= 2.1.46 - 12 June 2014 =
+* Fixed : Network Groups were not updated correctly from Edit User screen (Pro)
+
 = 2.1.45 - 11 June 2014 =
 * Compat : verified WP 3.9.1 compatibility
 * Feature : New setting on Advanced tab to force Administrators to see all pages, even if blocked from the "All" or "Authenticated" groups.
