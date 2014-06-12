@@ -49,7 +49,7 @@ Initial production release
 
 == Changelog ==
 
-= 2.1.45 - 11 June 2014
+= 2.1.45 - 11 June 2014 =
 * Compat : verified WP 3.9.1 compatibility
 * Feature : New setting on Advanced tab to force Administrators to see all pages, even if blocked from the "All" or "Authenticated" groups.
 * Fixed : Unexpected behavior when a parent category/term has no posts
