@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.9.1
-Stable tag: 2.1.45
+Stable tag: 2.1.46
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -49,8 +49,16 @@ Initial production release
 
 == Changelog ==
 
-= 2.1.46 - 12 June 2014 =
+= 2.1.46 - 24 July 2014 =
+* Feature : Option to keep non-editable posts visible in wp-admin (only if PP Collaborative Editing pack is NOT active).
+* Compat : Co-Authors Plus - basic compatibility if "hide uneditable posts" setting is disabled
+* Compat : Co-Authors Plus - compatibility with PP Pro extensions
+* Compat : Tribe Events Calendar - read access filtering for ajax-loaded displays
 * Fixed : Network Groups were not updated correctly from Edit User screen (Pro)
+* Fixed : Term Management and Association exceptions were not propagated to new sub-terms
+* Fixed : Edit Terms screen did not properly label "only these" exceptions for term Management or Association, cleared them on term update
+* Fixed : Terms list for Universal Exceptions generated invalid link for term edit
+* Fixed : Custom columns in terms listing for Universal Exceptions did not include term Management or Association exceptions
 
 = 2.1.45 - 11 June 2014 =
 * Compat : verified WP 3.9.1 compatibility
