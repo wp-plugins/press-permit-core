@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.9.1
-Stable tag: 2.1.46
+Tested up to: 4.0
+Stable tag: 2.1.47
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,12 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.47 - 4 Sep 2014 =
+* Feature : Option to change exceptions handling to make post-specific blockages take priority over term-specific additions
+* Fixed : Media Upload by non-Editors stalled on "crunching" under some configurations
+* Fixed : Edit User Permissions screen labeled group Exceptions box as "Supplemental Roles"
+* Fixed : Support key expiration message was displayed incorrectly in some situations
 
 = 2.1.46 - 24 July 2014 =
 * Feature : Option to keep non-editable posts visible in wp-admin (only if PP Collaborative Editing pack is NOT active).
