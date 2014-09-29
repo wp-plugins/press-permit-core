@@ -135,10 +135,7 @@ class PP_Exceptions {
 		}
 		
 		if ( $additions = apply_filters( 'pp_apply_additions', $additions, $where, $required_operation, $post_type, $args ) ) {
-			if ( $post_blockage_priority )
-				$where = "( ( $where ) OR ( " . pp_implode( ' OR ', $additions ) . " ) ) $post_blockage_clause";
-			else
-				$where = "( $where ) OR ( " . pp_implode( ' OR ', $additions ) . " )";
+			$where = "( $where ) OR ( " . pp_implode( ' OR ', $additions ) . " )";
 
 			/*
 			$additions = pp_implode( ' OR ', $additions );
@@ -152,6 +149,9 @@ class PP_Exceptions {
 			$where = "$src_table.post_type = '$post_type' AND $where";
 			*/
 		}
+		
+		if ( $post_blockage_priority )
+			$where = "( $where ) $post_blockage_clause";
 		
 		if ( $append_post_type_clause )
 			$where = "$src_table.post_type = '$post_type' AND ( $where )";

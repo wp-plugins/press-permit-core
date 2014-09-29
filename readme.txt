@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.0
-Stable tag: 2.1.47
+Stable tag: 2.1.48
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,10 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.48 - 29 Sep 2014 =
+* Fixed : Post-specific restrictions were not applied correctly if PP setting "Post-assigned Exceptions take priority" enabled
+* Fixed : Nuisance notification of "Post-assigned Exceptions take priority" setting on new installations
 
 = 2.1.47 - 4 Sep 2014 =
 * Feature : Option to change exceptions handling to make post-specific blockages take priority over term-specific additions

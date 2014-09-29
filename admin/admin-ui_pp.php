@@ -323,15 +323,15 @@ class PP_AdminUI
 		if ( ! is_super_admin() )
 			return;
 
-		if ( get_option( 'pp_post_blockage_priority' ) )
+		if ( get_option( 'pp_post_blockage_priority' ) || ! get_option( 'ppperm_legacy_exception_handling' ) )
 			return;
-			
+		
 		$msg_id = 'post_blockage_priority';
 		$dismissals = (array) pp_get_option( 'dismissals' );
 
 		if ( isset( $dismissals[$msg_id] ) )
 			return;
-
+			
 		$message = __( 'An improvement to permissions handling is available. Please review Permissions > Settings > Core > Permissions.', 'pp' );
 		
 		global $pp_plugin_page;
