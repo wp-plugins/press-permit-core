@@ -8,7 +8,7 @@ require_once( dirname(__FILE__).'/exceptions_pp.php' );
  * 
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2014, Agapetry Creations LLC
  * 
  */
 class PP_QueryInterceptor
@@ -82,10 +82,16 @@ class PP_QueryInterceptor
 				}
 			}
 			
+			/*
 			$read_actions = apply_filters( 'pp_ajax_read_actions', array( 'infinite_scroll', 'tribe_calendar', 'tribe_list', 'tribe_event_day', 'tribe_event_week', 'tribe_geosearch', 'tribe_photo' ) );
 			if ( in_array( $_REQUEST['action'], $read_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'read';
-
+			*/
+			
+			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array() );
+			if ( in_array( $_REQUEST['action'], $edit_actions ) ) {
+				$_wp_query->query_vars['required_operation'] = 'edit';
+			
 			} elseif ( ! empty($_wp_query->post_type) && is_scalar($_wp_query->post_type) ) {
 				$ajax_required_operation = apply_filters( 'pp_ajax_required_operation', array( 'ai1ec_event' => 'read' ) );
 				
@@ -95,7 +101,9 @@ class PP_QueryInterceptor
 						break;
 					}
 				}
-			}
+			} else {
+				$_wp_query->query_vars['required_operation'] = 'read';
+			}	 
 		}
 
 		if ( $_clauses = apply_filters( 'pp_posts_clauses_intercept', false, $clauses, $_wp_query, $args ) )

@@ -28,7 +28,7 @@ class PP_TermsQueryLib {
 		// Get the object and term ids and stick them in a lookup table
 		$tax_obj = get_taxonomy($taxonomy);
 		
-		$object_types = ( $post_type ) ? $post_type : esc_sql($tax_obj->object_type);
+		$object_types = ( $post_type ) ? (array) $post_type : (array) esc_sql($tax_obj->object_type);
 
 		if ( pp_unfiltered() ) {
 			$stati = get_post_stati( array( 'public' => true, 'private' => true ), 'names', 'or' );

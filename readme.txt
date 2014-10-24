@@ -49,6 +49,14 @@ Initial production release
 
 == Changelog ==
 
+= 2.1.49 =
+* Fixed : With "Post-assigned Exceptions take priority" setting active, post-specific enables did not override post-specific blockages
+* Fixed : With Network-wide groups enabled, exceptions stored (with network-wide previously disabled) to regular main site groups were still applied (though not displayed on Edit Group Permissions screen)
+* Fixed : Some non-Apache servers generated PHP warnings on Edit User screen
+* Compat : To resolve numerous Ajax conflicts, don't require editing permissions by default.
+* API : New filter 'pp_ajax_edit_actions' to require editing permissions for specific Ajax actions.
+* Compat : OZH Admin Menus - resolved issue with Permissions menu display
+
 = 2.1.48 - 29 Sep 2014 =
 * Fixed : Post-specific restrictions were not applied correctly if PP setting "Post-assigned Exceptions take priority" enabled
 * Fixed : Nuisance notification of "Post-assigned Exceptions take priority" setting on new installations
