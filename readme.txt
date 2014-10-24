@@ -52,7 +52,8 @@ Initial production release
 = 2.1.49 =
 * Fixed : With "Post-assigned Exceptions take priority" setting active, post-specific enables did not override post-specific blockages
 * Fixed : With Network-wide groups enabled, exceptions stored (with network-wide previously disabled) to regular main site groups were still applied (though not displayed on Edit Group Permissions screen)
-* Fixed : Some non-Apache servers generated PHP warnings on Edit User screen
+* Fixed : PHP warnings for "implode(): Invalid arguments" on various wp-admin screens
+* Fixed : Some non-Apache servers had "Fatal error: Object of class stdClass could not be converted to string" on Edit User and Edit Permission Groups screens
 * Compat : To resolve numerous Ajax conflicts, don't require editing permissions by default.
 * API : New filter 'pp_ajax_edit_actions' to require editing permissions for specific Ajax actions.
 * Compat : OZH Admin Menus - resolved issue with Permissions menu display
