@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.0
-Stable tag: 2.1.48
+Stable tag: 2.1.49
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -49,14 +49,19 @@ Initial production release
 
 == Changelog ==
 
-= 2.1.49 =
+= 2.1.49 - 13 Nov 2014 =
 * Fixed : With "Post-assigned Exceptions take priority" setting active, post-specific enables did not override post-specific blockages
 * Fixed : With Network-wide groups enabled, exceptions stored (with network-wide previously disabled) to regular main site groups were still applied (though not displayed on Edit Group Permissions screen)
+* Fixed : Users with "Only These" editing exceptions for specified pages could delete those pages for editing access to other pages.  Trash/deletion is now blocked unless user also has an "Also these" exception for the page.
 * Fixed : PHP warnings for "implode(): Invalid arguments" on various wp-admin screens
 * Fixed : Some non-Apache servers had "Fatal error: Object of class stdClass could not be converted to string" on Edit User and Edit Permission Groups screens
-* Compat : To resolve numerous Ajax conflicts, don't require editing permissions by default.
+* Fixed : Edit User screen did not display Network Groups checkboxes under some configurations 
+* Change : Post / term selection UI on Edit Permission Group screen now default to 100 items per page, and can be customized via PP_ITEM_MENU_PER_PAGE constant definition. 
+* Compat : To resolve numerous Ajax conflicts, don't require editing permissions by default. New filter 'pp_ajax_edit_actions' replaces 'pp_ajax_read_actions'.
+* Compat : Ozh Admin Menus: caption PP Settings submenu (in Settings menu) more descriptively
 * API : New filter 'pp_ajax_edit_actions' to require editing permissions for specific Ajax actions.
-* Compat : OZH Admin Menus - resolved issue with Permissions menu display
+* Fixed : Edit Permissions UI did not obey PP_ALL_ANON_FULL_EXCEPTIONS constant, limiting assignments to the "{All}" and "{Anon}" groups
+* Fixed : PHP warnings on Permissions > Settings > Install screen when key is not activated
 
 = 2.1.48 - 29 Sep 2014 =
 * Fixed : Post-specific restrictions were not applied correctly if PP setting "Post-assigned Exceptions take priority" enabled

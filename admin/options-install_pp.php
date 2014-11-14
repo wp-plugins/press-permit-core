@@ -233,7 +233,7 @@ class PP_Options_Install {
 			<?php printf( __( "PHP Version: %s", 'pp'), phpversion() );?>
 			<br />
 			<?php
-			if ( ! $activated && ! $expired && ! defined( 'PP_FORCE_PPCOM_INFO' ) ) :?>
+			if ( empty($activated) && empty($expired) && ! defined( 'PP_FORCE_PPCOM_INFO' ) ) :?>
 				<div style="margin-top:10px">
 				<?php
 				$hint = __( 'Periodically query presspermit.com for available extensions. Your version info will be sent.', 'pp' );
@@ -511,7 +511,7 @@ class PP_Options_Install {
 		endif; // any options accessable in this section
 		
 		
-		if ( $activated ) {
+		if ( ! empty($activated) ) {
 			$section = 'beta_updates';								// --- BETA UPDATES SECTION ---
 			if ( ! empty( $ui->form_options[$tab][$section] ) && ! $suppress_updates && $ppcom_connect ) : ?>
 				<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section]; ?></th><td>

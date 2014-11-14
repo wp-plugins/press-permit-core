@@ -237,7 +237,8 @@ class PP_AdminUI
 		if ( $do_settings ) {
 			do_action( 'pp_permissions_menu', $pp_options_menu, $handler );
 
-			add_submenu_page($pp_options_menu, __('Settings', 'pp'), __('Settings', 'pp'), 'read', 'pp-settings', $handler );
+			$settings_caption = ( 'pp-groups' == $pp_options_menu ) ? __( 'Settings', 'pp' ) : __( 'Permissions', 'pp' );
+			add_submenu_page($pp_options_menu, $settings_caption, $settings_caption, 'read', 'pp-settings', $handler );
 		}
 
 		// satisfy WordPress' demand that all admin links be properly defined in menu
