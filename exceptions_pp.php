@@ -10,6 +10,9 @@ class PP_Exceptions {
 			$user = $pp_current_user;
 		}
 
+		// TODO: why is this needed on some installations?
+		$user->retrieve_exceptions( $operation, 'post' );
+		
 		// Note: this does not apply term exceptions (not needed for current implementation, which only uses this function for 'associate' op )
 		
 		$additional_ids = $user->get_exception_posts( $operation, 'additional', $post_type );

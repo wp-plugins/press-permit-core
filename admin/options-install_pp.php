@@ -531,7 +531,7 @@ class PP_Options_Install {
 
 	function footer_js( $activated ) {
 		$vars = array( 
-			'activated' => ( $activated ) ? true : false,
+			'activated' => ( $activated || ! empty($expired) ) ? true : false,
 			'activateCaption' => __('Activate Key','pp'),
 			'deactivateCaption' => __('Deactivate Key','pp'),
 			'connectingCaption' => __('Connecting to presspermit.com server...','pp'),

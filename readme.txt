@@ -49,6 +49,13 @@ Initial production release
 
 == Changelog ==
 
+= 2.1.50-dev =
+* Fixed : Pro: Media Items were not properly filtered in grid view
+* Fixed : Errors on Add Supplemental Role UI if standard WP role definition are deleted
+* Fixed : Pro: Expired support key caused incorrect display of Activation UI
+* Fixed : Fatal Error when calling some PP API functions from front end
+* Fixed : Fatal Error for redeclared class SQLTokenizer on some installations
+
 = 2.1.49 - 13 Nov 2014 =
 * Fixed : With "Post-assigned Exceptions take priority" setting active, post-specific enables did not override post-specific blockages
 * Fixed : With Network-wide groups enabled, exceptions stored (with network-wide previously disabled) to regular main site groups were still applied (though not displayed on Edit Group Permissions screen)

@@ -88,7 +88,7 @@ class PP_QueryInterceptor
 				$_wp_query->query_vars['required_operation'] = 'read';
 			*/
 			
-			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array() );
+			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array( 'query-attachments' ) );
 			if ( in_array( $_REQUEST['action'], $edit_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'edit';
 			

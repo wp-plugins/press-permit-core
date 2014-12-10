@@ -19,7 +19,7 @@ class SqlTokenizer_WP extends SqlTokenizer {
  * @license LGPL 3
  * @version 0.0.4
  */
-class SqlTokenizer {
+class SqlTokenizer_KB {
     var $querysections = array( 'alter', 'create', 'drop', 'select', 'delete', 'insert','update', 'from', 'where', 'limit', 'order' );
     var $operators = array( '=', '<>', '<', '<=', '>', '>=', 'like', 'clike', 'slike', 'not', 'is', 'in', 'between' );
     var $separators = array( 'and' );
