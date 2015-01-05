@@ -8,7 +8,7 @@ require_once( dirname(__FILE__).'/exceptions_pp.php' );
  * 
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2014, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2015, Agapetry Creations LLC
  * 
  */
 class PP_QueryInterceptor
@@ -88,7 +88,7 @@ class PP_QueryInterceptor
 				$_wp_query->query_vars['required_operation'] = 'read';
 			*/
 			
-			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array( 'query-attachments' ) );
+			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array() );
 			if ( in_array( $_REQUEST['action'], $edit_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'edit';
 			
@@ -423,8 +423,9 @@ class PP_QueryInterceptor
 				if ( $modified = apply_filters( 'pp_adjust_posts_where_clause', false, $where_arr[$post_type], $post_type, $args ) )
 					$where_arr[$post_type] = $modified;
 					
-				if ( 'attachment' == $post_type ) {					
+				if ( 'attachment' == $post_type ) {
 					if ( ( 'read' == $required_operation ) || apply_filters( 'pp_force_attachment_parent_clause', false, $args ) ) {
+					//if ( ( 'read' == $required_operation ) || ( defined('DOING_AJAX') && DOING_AJAX && ( false != strpos( $_SERVER['REQUEST_URI'], 'async-upload.php' ) ) ) || apply_filters( 'pp_force_attachment_parent_clause', false, $args ) ) {
 						$where_arr[$post_type] = "( " . $this->append_attachment_clause( "$src_table.post_type = 'attachment'", array(), $args ) . " )";
 					}
 				}

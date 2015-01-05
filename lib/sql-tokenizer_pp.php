@@ -1,5 +1,5 @@
 <?php
-class SqlTokenizer_WP extends SqlTokenizer {
+class SqlTokenizer_PP extends SqlTokenizer_KB {
 	public function __construct() {
 		$this->separators = array_merge( $this->separators, array( 'post_status', 'post_author', 'post_date', 'post_date_gmt', 'post_parent', 'post_modified', 'post_modified_gmt', 'ID', 'post_name', 'guid' ) );
 	}

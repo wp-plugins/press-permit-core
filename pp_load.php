@@ -4,7 +4,7 @@
  * 
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2015, Agapetry Creations LLC
  * 
  */
 
@@ -205,6 +205,10 @@ function pp_init_with_user() {
 	if ( empty( $pp_current_user) || ! defined( 'INIT_ACTION_DONE_PP' ) )
 		return;
 
+	// Prevent conflicts with JSON REST API (no filtering support for now)
+	if ( defined( 'JSON_API_VERSION' ) && ! defined( 'PP_FILTER_JSON_REST' ) && ( false !== strpos( $_SERVER['REQUEST_URI'], apply_filters( 'json_url_prefix', 'wp-json' ) ) ) )
+		return;
+		
 	require_once( dirname(__FILE__).'/pp_main.php');
 	
 	if ( empty($pp) )
@@ -224,7 +228,7 @@ function ppc_interrupt_init() {
 	if ( is_admin() && strpos($_SERVER['SCRIPT_NAME'], 'async-upload.php') && ! empty($_POST['attachment_id']) && ! empty($_POST['fetch']) && ( 3 == $_POST['fetch']) ) {
 		if ( $att = get_post( $_POST['attachment_id'] ) ) {
 			global $current_user;
-			if ( $att->post_author == $current_user->ID )
+			if ( $att->post_author == $current_user->ID && ! defined( 'PP_UPLOADS_FORCE_FILTERING' ) )
 				return true;
 		}
 	}
