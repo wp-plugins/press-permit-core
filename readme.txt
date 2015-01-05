@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 4.0
-Stable tag: 2.1.49
+Tested up to: 4.1
+Stable tag: 2.1.50
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -49,12 +49,13 @@ Initial production release
 
 == Changelog ==
 
-= 2.1.50-dev =
+= 2.1.50 - 5 Jan 2015 =
 * Fixed : Pro: Media Items were not properly filtered in grid view
 * Fixed : Errors on Add Supplemental Role UI if standard WP role definition are deleted
 * Fixed : Pro: Expired support key caused incorrect display of Activation UI
 * Fixed : Fatal Error when calling some PP API functions from front end
 * Fixed : Fatal Error for redeclared class SQLTokenizer on some installations
+* Compat : JSON REST API - filtering of calls does not match typical API usage (now not filtered at all unless PP_FILTER_JSON_REST constant defined)
 
 = 2.1.49 - 13 Nov 2014 =
 * Fixed : With "Post-assigned Exceptions take priority" setting active, post-specific enables did not override post-specific blockages
