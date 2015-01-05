@@ -49,6 +49,9 @@ Initial production release
 
 == Changelog ==
 
+= 2.1.51-dev =
+* Compat : Kriesi Enfold theme - More Posts query failed
+
 = 2.1.50 - 5 Jan 2015 =
 * Fixed : Pro: Media Items were not properly filtered in grid view
 * Fixed : Errors on Add Supplemental Role UI if standard WP role definition are deleted

@@ -62,6 +62,10 @@ class PP_TermsInterceptor {
 			
 		if ( 'id=>parent' == $args['fields'] ) // internal storage of {$taxonomy}_children
 			return true;
+			
+		// Kriesi Enfold theme conflict on "More Posts" query
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && in_array( $_REQUEST['action'], apply_filters( 'pp_unfiltered_ajax_termcount', array( 'avia_ajax_masonry_more' ) ) ) )
+			return true;
 	}
 	
 	function flt_get_terms_args( $args, $taxonomies ) {
