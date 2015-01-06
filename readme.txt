@@ -52,6 +52,7 @@ Initial production release
 = 2.1.51-dev =
 * Compat : Kriesi Enfold theme - More Posts query failed
 * Fixed : Incorrect user count for WP role groups on Permissions > Groups screen
+* Compat : Events Manager - PHP Warning on Event Tags, Event Categories screen under some configurations
 
 = 2.1.50 - 5 Jan 2015 =
 * Fixed : Pro: Media Items were not properly filtered in grid view
