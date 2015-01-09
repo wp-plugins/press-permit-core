@@ -55,6 +55,9 @@ else
 
 $pp_role_defs = new PP_Role_Defs();
 
+if ( did_action( 'set_current_user' ) )  // Google Analytics by Yoast load current user prior to 'init' action
+	_pp_act_set_current_user();
+
 //if ( ! pp_wp_ver( '3.0' ) )
 //	require_once( dirname(__FILE__).'/wp-legacy_pp.php' );
 
@@ -505,7 +508,13 @@ function pp_is_content_administrator( $user = false ) { return pp_is_administrat
 function pp_unfiltered( $user = false ) { return pp_is_administrator( $user, 'unfiltered' ); }
 
 function pp_is_front() {
-	return ( ! is_admin() && ! defined('XMLRPC_REQUEST') && ! defined('DOING_AJAX') && ! defined('DOING_CRON') );
+	return ( ! is_admin() && ! defined('XMLRPC_REQUEST') && ! defined('DOING_AJAX') && ! pp_doing_cron() );
+}
+
+function pp_doing_cron() {
+	// WP Cron Control plugin disables core cron by setting DOING_CRON on every site access.  Use plugin's own scheme to detect actual cron requests.
+	$doing_cron = defined('DOING_CRON') && ( ! class_exists('WP_Cron_Control') || ! defined('ABSPATH') ) && apply_filters( 'pp_doing_cron', true );
+	return $doing_cron;
 }
 
 function pp_get_role_attributes( $role_name ) {

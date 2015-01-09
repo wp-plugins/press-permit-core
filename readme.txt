@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 2.1.50
+Stable tag: 2.1.51
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -49,10 +49,12 @@ Initial production release
 
 == Changelog ==
 
-= 2.1.51-dev =
+= 2.1.51 - 9 Jan 2015 =
+* Compat : Google Analytics by Yoast - PP filtering was disabled due to GA loading user prior to init action
+* Compat : WP Cron Control - PP filtering was disabled due to WPCC setting constant DOING_CRON universally
+* Compat : Events Manager - PHP Warning on Event Tags, Event Categories screen under some configurations
 * Compat : Kriesi Enfold theme - More Posts query failed
 * Fixed : Incorrect user count for WP role groups on Permissions > Groups screen
-* Compat : Events Manager - PHP Warning on Event Tags, Event Categories screen under some configurations
 
 = 2.1.50 - 5 Jan 2015 =
 * Fixed : Pro: Media Items were not properly filtered in grid view
