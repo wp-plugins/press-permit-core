@@ -49,6 +49,10 @@ Initial production release
 
 == Changelog ==
 
+= 2.1.54-dev =
+* Fixed : PP tabs in wp-admin broke if a third party plugin added classes to their links
+* Feature : Support filtering of WP Users listing by PP group, by appending pp_group argument to URL
+
 = 2.1.53 - 4 Feb 2015 =
 * Compat : Visual Composer - invalid display of VC "add element" UI on Edit Term screen
 
