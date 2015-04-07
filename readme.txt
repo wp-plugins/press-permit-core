@@ -49,6 +49,10 @@ Initial production release
 
 == Changelog ==
 
+= 2.1.56-dev =
+* Fix : Add New button was missing from top of Permissions Groups screen
+* Change : Relative URL in wp_http_referer argument may prevent redirect failure on some servers following permission group creation
+
 = 2.1.55 - 17 Mar 2015 =
 * Fixed : Permission Groups management screen failed with fatal error / white screen on WP 3.9.x and previous (since 2.1.52)
 * Change : Editing exceptions also allow deletion if constant PP_EDIT_EXCEPTIONS_ALLOW_DELETION is defined
