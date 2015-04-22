@@ -129,7 +129,7 @@ if ( ! empty($retval) && is_wp_error( $retval ) ) {
 		}
 	}
 	
-	$redirect = add_query_arg('update', 1, $redirect);
+	$redirect = esc_url_raw( add_query_arg('update', 1, $redirect) );
 	
 	wp_redirect($redirect);
 	exit;

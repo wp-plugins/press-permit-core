@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 4.1.1
-Stable tag: 2.1.55
+Tested up to: 4.2
+Stable tag: 2.1.56
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -49,9 +49,14 @@ Initial production release
 
 == Changelog ==
 
-= 2.1.56-dev =
-* Fix : Add New button was missing from top of Permissions Groups screen
-* Change : Relative URL in wp_http_referer argument may prevent redirect failure on some servers following permission group creation
+= 2.1.56 - 22 Apr 2015 =
+* Fixed : "Add New" button was missing from top of Permissions Groups screen
+* Fixed : Relative URL in wp_http_referer argument may prevent redirect failure on some servers following permission group creation
+* Fixed : Harden security within wp-admin (mirroring WP 4.1.1 changes) 
+* Change : Editing exceptions on parent post also allows deletion of attachment if constant PP_EDIT_EXCEPTIONS_ALLOW_DELETION or PP_EDIT_EXCEPTIONS_ALLOW_ATTACHMENT_DELETION is defined
+* Change : Search users by last name if constant PP_USER_LASTNAME_SEARCH is defined
+* Change : Display user search results by display name if constant PP_USER_RESULTS_DISPLAY_NAME is defined
+* Change : If a custom WP_Query call passes in a required_operation argument, don't override it
 
 = 2.1.55 - 17 Mar 2015 =
 * Fixed : Permission Groups management screen failed with fatal error / white screen on WP 3.9.x and previous (since 2.1.52)
