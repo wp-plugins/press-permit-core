@@ -55,7 +55,7 @@ class PP_Updater {
 			$nonce = 'upgrade-plugin_' . $plugin;
 			$url = "update.php?action={$slug}&plugin=" . $plugin;
 
-			$upgrader = new PP_Core_Upgrader( new PP_Upgrader_Skin( compact('title', 'nonce', 'url', 'plugin') ) );
+			$upgrader = new PP_Upgrader( new PP_Upgrader_Skin( compact('title', 'nonce', 'url', 'plugin') ) );
 			$upgrader->upgrade_pp_package($plugin);
 
 			define('UPDATED_PP_PLUGIN', true);
@@ -182,6 +182,7 @@ class PP_Upgrader extends Plugin_Upgrader {
 			$this->strings['no_files'] = __ppw('The plugin contains no files.');
 			$this->strings['process_failed'] = sprintf( __ppw('%s install Failed.','pp'), $title );
 			$this->strings['process_success'] = sprintf( __ppw('%s installed successfully.','pp'), $title );
+			$this->strings['remove_old'] = __ppw('Removing the old version of the plugin&#8230;');
 		}
 	}
 	
@@ -216,6 +217,8 @@ class PP_Upgrader extends Plugin_Upgrader {
 	}
 
 	function upgrade_pp_package($plugin) {
+		$is_active = is_plugin_active( $plugin );
+		
 		$this->init();
 		$this->upgrade_strings();
 
@@ -255,7 +258,10 @@ class PP_Upgrader extends Plugin_Upgrader {
 			pp_get_version_info( true, false, true );
 			return $this->result;
 		}
-			
+		
+		if ( ! is_multisite() && $is_active )
+			activate_plugins( $plugin );
+		
 		// Force refresh of plugin update information
 		set_site_transient('ppc_update_info', false);
 		
