@@ -212,9 +212,7 @@ class PP_Options_Core {
 			<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section];?></th><td>
 			<?php
 			$hint = ( 0 === validate_plugin( "pp-collaborative-editing/pp-collaborative-editing.php" ) ) ? __('Note: pending further development, uneditable posts will always be hidden if the PP Collaborative Editing extension is active', 'pp') : '';
-			if ( defined( 'PPCE_VERSION' ) ) {
-				$args = array( 'val' => 1, 'disabled' => true, 'no_storage' => true );
-			}
+			$args = ( defined( 'PPCE_VERSION' ) )? array( 'val' => 1, 'disabled' => true, 'no_storage' => true ) : array();
 			$ui->option_checkbox( 'admin_hide_uneditable_posts', $tab, $section, $hint, '', $args );
 			?>
 			</td></tr>

@@ -175,7 +175,7 @@ function _pp_support_upload( $args = array() ) {
 	}
 	
 	$wpdb->ppi_imported = $wpdb->prefix . 'ppi_imported';
-	if ( mysql_num_rows( mysql_query( "SHOW TABLES LIKE '$wpdb->ppi_imported'") ) ) {
+	if ( @mysql_num_rows( @mysql_query( "SHOW TABLES LIKE '$wpdb->ppi_imported'") ) ) {
 		$wpdb->ppi_runs = $wpdb->prefix . 'ppi_runs';
 		$wpdb->ppi_errors = $wpdb->prefix . 'ppi_errors';
 	}	

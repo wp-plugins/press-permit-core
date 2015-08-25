@@ -456,7 +456,7 @@ class PP_GroupsUI {
 		}
 
 		// --- add permission tabs ---
-		echo "<div style='clear:both'></div><ul id='pp_add_permission_tabs' class='pp-list_horiz' style='margin-bottom:-3px'>";
+		echo "<ul id='pp_add_permission_tabs' class='pp-list_horiz' style='margin-bottom:-3px'>";
 		foreach( $perms as $perm_type => $_caption ) {
 			$class = ( "pp-add-$perm_type" == $current_tab ) ? 'agp-selected_agent' : 'agp-unselected_agent';
 

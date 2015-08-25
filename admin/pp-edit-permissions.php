@@ -210,7 +210,7 @@ if ( pp_group_type_editable( $agent_type ) && ( empty($agent->metagroup_type) ||
 do_action( 'pp_group_edit_form', $agent_type, $agent_id );
 
 if ( $agent_id ) {
-	if ( pp_group_type_editable($agent_type) && ! in_array( $agent->metagroup_type, array( 'wp_role', 'meta_role' ) ) ) {
+	if ( pp_group_type_editable($agent_type) && ! in_array( $agent->metagroup_type, array( 'wp_role', 'meta_role' ) ) && ! in_array( $agent_type, apply_filters( 'pp_automember_group_types', array( 'bp_group' ) ) ) ) {
 		$member_types = array();
 
 		if ( pp_has_group_cap( 'pp_manage_members', $agent_id, $agent_type ) )
@@ -233,6 +233,7 @@ do_action( 'pp_edit_group_profile', $agent_type, $agent_id );
 
 </form>
 
+<div style='clear:both'></div>
 <?php
 if ( current_user_can('pp_assign_roles') && pp_bulk_roles_enabled() ) {
 	PP_GroupsUI::_draw_group_permissions($agent_id, $agent_type, $url, $wp_http_referer, compact( 'agent' ) );

@@ -1,21 +1,3 @@
-.pp-select-author input {
-vertical-align: top;
-}
-.pp-select-author  button {
-padding-top:0;
-}
-.pp-select-author button.pp_add {
-float: none;
-}
-.pp-select-author  h4 {
-margin-top: 0;
-margin-bottom: 5px;
-}
-.pp-select-author  .pp-agents-selection select{
-min-width: 170px;
-}
-
-
 
 .pp-exceptions table {
 margin-top: 5px;

@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 4.2.2
-Stable tag: 2.2.1
+Tested up to: 4.3
+Stable tag: 2.2.2
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.2 - 25 Aug 2015 =
+* Fixed : Improved formatting on Edit Permission Groups screen
+* Fixed : Pro - Membership editing UI was displayed inappropriatedly on Permission Group screen for BuddyPress Groups
+* Fixed : Pro - PHP Warnings on configuration upload under some conditions
 
 = 2.2.1 - 3 Jul 2015 =
 * Fixed : Pro - Extensions could not be updated
