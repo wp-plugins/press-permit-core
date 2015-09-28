@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 4.3
-Stable tag: 2.2.2
+Tested up to: 4.3.1
+Stable tag: 2.2.3
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,12 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.3 - 28 Sep 2015 =
+* Fixed : PHP Notice when a user's role is changed 
+* Change : Support constant PP_UNFILTERED_FRONT to disable read access filtering
+* Change : Support constant PP_UNFILTERED_FRONT_TYPES to specify which (comma-separated) post types should have read access filtering disabled
+* Change : When PP_UNFILTERED_FRONT is defined, also support filters pp_skip_filtering and pp_skip_cap_filtering to allow third party identification of queries which should not be filtered
 
 = 2.2.2 - 25 Aug 2015 =
 * Fixed : Improved formatting on Edit Permission Groups screen

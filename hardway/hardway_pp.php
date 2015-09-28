@@ -66,6 +66,17 @@ class PP_Hardway
 		$post_type = ( isset( $args['post_type'] ) ) ? $args['post_type'] : $defaults['post_type'];
 		
 		$enabled_post_types = pp_get_enabled_post_types();
+		
+		if ( defined( 'PP_UNFILTERED_FRONT' ) ) {
+			if ( defined( 'PP_UNFILTERED_FRONT_TYPES' ) ) {
+				$unfiltered_types = str_replace( ' ', '', PP_UNFILTERED_FRONT_TYPES );
+				$unfiltered_types = explode( ',', constant( $unfiltered_types ) );
+				$enabled_post_types = array_diff( $enabled_post_types, $unfiltered_types );
+			} else {
+				return $results;
+			}
+		}
+
 		if ( ! in_array( $post_type, $enabled_post_types ) )
 			return $results;
 

@@ -222,7 +222,7 @@ class PP_AdminFilters
 
 	// simplifies attaching this function to hook which pass irrelevant argument
 	function sync_all_wproles() {
-		$this->act_sync_wproles();
+		self::act_sync_wproles();
 	}
 
 	// modifies WP core _update_post_term_count to include private posts in the count, since PP roles can grant access to them

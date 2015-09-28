@@ -173,13 +173,6 @@ class PP_QueryInterceptor
 		if ( ! $required_operation && ! empty( $_REQUEST['preview'] ) ) {
 			$required_operation = 'edit';
 		}
-
-		// Since Press Permit can restrict or expand access regardless of post_status, query must be modified such that
-		//  * the default owner inclusion clause "OR post_author = [user_id] AND post_status = 'private'" is removed
-		//  * all statuses are listed apart from owner inclusion clause (and each of these status clauses is subsequently filtered to impose any necessary access limits)
-		//  * a new filtered owner clause is constructed where appropriate
-		//
-		$where = preg_replace( str_replace('[user_id]', $pp_current_user->ID, "/OR\s*($src_table.|)post_author\s*=\s*[user_id]\s*AND\s*($src_table.|)post_status\s*=\s*'([a-z0-9_\-]*)'/"), str_replace('[user_id]', $pp_current_user->ID, "OR $src_table.post_status = '$3'"), $where );
 		
 		// Avoid superfluous clauses by limiting object types to those already specified in the query 
 		if ( preg_match( "/post_type\s*=/", $where ) || preg_match( "/post_type\s*IN/", $where ) ) {  // post_type clause present? 
@@ -192,9 +185,26 @@ class PP_QueryInterceptor
 		if ( ! $force_types )
 			$post_types = array_intersect( $post_types, pp_get_enabled_post_types() );
 
+		if ( defined( 'PP_UNFILTERED_FRONT' ) && ( ( 'read' == $required_operation ) || ( ! $required_operation && pp_is_front() && ! is_preview() ) || apply_filters( 'pp_skip_filtering', false, $args ) ) ) {
+			if ( defined( 'PP_UNFILTERED_FRONT_TYPES' ) ) {
+				$unfiltered_types = str_replace( ' ', '', PP_UNFILTERED_FRONT_TYPES );
+				$unfiltered_types = explode( ',', constant( $unfiltered_types ) );
+				$post_types = array_diff( $post_types, $unfiltered_types );
+			} else {
+				return $where;
+			}
+		}
+		
 		if ( ! $post_types )
 			return $where;
 	
+		// Since Press Permit can restrict or expand access regardless of post_status, query must be modified such that
+		//  * the default owner inclusion clause "OR post_author = [user_id] AND post_status = 'private'" is removed
+		//  * all statuses are listed apart from owner inclusion clause (and each of these status clauses is subsequently filtered to impose any necessary access limits)
+		//  * a new filtered owner clause is constructed where appropriate
+		//
+		$where = preg_replace( str_replace('[user_id]', $pp_current_user->ID, "/OR\s*($src_table.|)post_author\s*=\s*[user_id]\s*AND\s*($src_table.|)post_status\s*=\s*'([a-z0-9_\-]*)'/"), str_replace('[user_id]', $pp_current_user->ID, "OR $src_table.post_status = '$3'"), $where );
+		
 		// If the passed request contains a single status criteria, maintain that status exclusively (otherwise include each available status)
 		// (But not if user is anon and hidden content teaser is enabled.  In that case, we need to replace the default "status=publish" clause)
 		$matches = array();

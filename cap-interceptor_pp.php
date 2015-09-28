@@ -90,6 +90,19 @@ class PP_CapInterceptor
 				}
 			}
 		}
+		
+		if ( defined( 'PP_UNFILTERED_FRONT' ) && $item_id && ( ( 'read_post' == $orig_cap ) || apply_filters( 'pp_skip_cap_filtering', false, $args ) ) ) {
+			if ( defined( 'PP_UNFILTERED_FRONT_TYPES' ) ) {
+				$unfiltered_types = str_replace( ' ', '', PP_UNFILTERED_FRONT_TYPES );
+				$unfiltered_types = explode( ',', constant( $unfiltered_types ) );
+				
+				if ( in_array( get_post_field( 'post_type', $item_id ), $unfiltered_types ) ) {
+					return $wp_sitecaps;
+				}
+			} else {
+				return $wp_sitecaps;
+			}
+		}
 
 		if ( is_array($orig_cap) || ! isset( $this->meta_caps[ $orig_cap ] ) ) { // Revisionary may pass array into args[0]
 	
@@ -268,7 +281,7 @@ class PP_CapInterceptor
 		
 		// ========================================== ARGUMENT TRANSLATION AND STATUS DETECTION =============================================
 		$post_id = ( isset($args[2]) ) ? $args[2] : pp_get_post_id();
-
+		
 		$post_type = pp_find_post_type( $post_id ); // will be pulled from object
 
 		$pp_reqd_caps = (array) $args[0]; // already cast to array
