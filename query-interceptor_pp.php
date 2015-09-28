@@ -56,19 +56,21 @@ class PP_QueryInterceptor
 		if ( pp_unfiltered() && ( ! is_admin() || ( $pagenow != 'nav-menus.php' ) ) ) // need to make private items selectable for nav menus
 			return $clauses;
 
-		if ( defined( 'PP_MEDIA_LIB_UNFILTERED' ) && ( ( 'upload.php' == $pagenow ) || ( defined('DOING_AJAX') && DOING_AJAX && ( 'query-attachments' == $_REQUEST['action'] ) ) ) )
+		$action = ( isset( $_REQUEST['action'] ) ) ? $_REQUEST['action'] : '';
+		
+		if ( defined( 'PP_MEDIA_LIB_UNFILTERED' ) && ( ( 'upload.php' == $pagenow ) || ( defined('DOING_AJAX') && DOING_AJAX && ( 'query-attachments' == $action ) ) ) )
 			return $clauses;
 
 		if ( is_admin() && ! defined( 'PPCE_VERSION' ) && ! pp_get_option( 'admin_hide_uneditable_posts' ) )
 			return $clauses;
 			
 		if ( defined('DOING_AJAX') && DOING_AJAX ) { // todo: separate function to eliminate redundancy with PP_Find::find_post_type()
-			if ( in_array( $_REQUEST['action'], (array) apply_filters( 'pp_unfiltered_ajax', array() ) ) )
+			if ( in_array( $action, (array) apply_filters( 'pp_unfiltered_ajax', array() ) ) )
 				return $clauses;
 
 			$nofilter_prefixes = (array) apply_filters( 'pp_unfiltered_ajax_prefix', array( 'acf/' ) );  // Advanced Custom Fields (conflict with action=acf/fields/relationship/query_posts)
 			foreach( $nofilter_prefixes as $prefix ) {
-				if ( 0 === strpos( $_REQUEST['action'], $prefix ) ) {
+				if ( 0 === strpos( $action, $prefix ) ) {
 					return $clauses;
 				}
 			}
@@ -76,7 +78,7 @@ class PP_QueryInterceptor
 			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'attachment' => 'attachment', 'ai1ec_doing_ajax' => 'ai1ec_event', 'tribe_calendar' => 'tribe_events' ) );
 			
 			foreach( array_keys($ajax_post_types) as $arg ) {
-				if ( ! empty( $_REQUEST[$arg] ) || ( $arg == $_REQUEST['action'] ) ) {
+				if ( ! empty( $_REQUEST[$arg] ) || ( $arg == $action ) ) {
 					$_wp_query->post_type = $ajax_post_types[$arg];
 					break;
 				}
@@ -84,7 +86,7 @@ class PP_QueryInterceptor
 			
 			/*
 			$read_actions = apply_filters( 'pp_ajax_read_actions', array( 'infinite_scroll', 'tribe_calendar', 'tribe_list', 'tribe_event_day', 'tribe_event_week', 'tribe_geosearch', 'tribe_photo' ) );
-			if ( in_array( $_REQUEST['action'], $read_actions ) ) {
+			if ( in_array( $action, $read_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'read';
 			*/
 			
@@ -92,7 +94,7 @@ class PP_QueryInterceptor
 				$_wp_query->query_vars['required_operation'] = 'read';  // default to requiring read access for all ajax queries
 			
 			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array() );
-			if ( in_array( $_REQUEST['action'], $edit_actions ) ) {
+			if ( in_array( $action, $edit_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'edit';
 			
 			} elseif ( ! empty($_wp_query->post_type) && is_scalar($_wp_query->post_type) ) {

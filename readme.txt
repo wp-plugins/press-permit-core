@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.3.1
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,10 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.4 - 28 Sep 2015 =
+* Fixed : PHP Notice for missing action argument broke some Ajax responses
+* Change : Support constant PP_RESTRICTION_PRIORITY to force "Not these" exceptions to take priority over "Also these" exceptions
 
 = 2.2.3 - 28 Sep 2015 =
 * Fixed : PHP Notice when a user's role is changed 

@@ -139,7 +139,22 @@ class PP_Exceptions {
 		
 		if ( $additions = apply_filters( 'pp_apply_additions', $additions, $where, $required_operation, $post_type, $args ) ) {
 			$where = "( $where ) OR ( " . pp_implode( ' OR ', $additions ) . " )";
-
+			
+			if ( defined( 'PP_RESTRICTION_PRIORITY' ) && PP_RESTRICTION_PRIORITY ) {  // this constant forces exclusions to take priority over additions
+				if ( $ids = $pp_current_user->get_exception_posts( $required_operation, 'exclude', $exc_post_type ) ) {
+					$_args = array_merge( $args, array( 'mod' => 'exclude', 'ids' => $ids, 'src_table' => $src_table, 'logic' => "NOT IN" ) );
+					$restriction_clause = apply_filters( 'pp_exception_clause', "$src_table.ID NOT IN ('" . implode( "','", $ids ) . "')", $required_operation, $post_type, $_args );
+				} else
+					$restriction_clause = '1=1';
+				
+				if ( $apply_term_restrictions )
+					$restriction_clause .= self::add_term_restrictions_clause( $required_operation, $post_type, $src_table, array( 'mod_types' => 'exclude' ) );
+				
+				if ( $restriction_clause != '1=1' ) {
+					$where = "( $where ) AND ( $restriction_clause )";
+				}
+			}
+			
 			if ( $post_blockage_clause ) {
 				$post_blockage_clause = "AND ( ( 1=1 $post_blockage_clause ) OR ( " . pp_implode( ' OR ', $additions ) . " ) )";
 			}
@@ -169,7 +184,8 @@ class PP_Exceptions {
 	public static function add_term_restrictions_clause( $required_operation, $post_type, $src_table, $args = array() ) {		
 		global $wpdb, $pp_current_user;
 		
-		extract( array_merge( array( 'merge_additions' => false, 'exempt_post_types' => array() ), $args ), EXTR_SKIP );
+		extract( array_merge( array( 'merge_additions' => false, 'exempt_post_types' => array(), 'mod_types' => array( 'include', 'exclude' ) ), $args ), EXTR_SKIP );
+		$mod_types = (array) $mod_types;
 		
 		$where = '';
 		$excluded_ttids = array();
@@ -182,7 +198,7 @@ class PP_Exceptions {
 			$tx_additional_ids = ( $merge_additions ) ? $pp_current_user->get_exception_terms( $required_operation, 'additional', $post_type, $taxonomy, array( 'status' => '', 'merge_universals' => true ) ) : array();
 
 			// post may be required to be IN a term set for one taxonomy, and NOT IN a term set for another taxonomy
-			foreach( array( 'include', 'exclude' ) as $mod ) {
+			foreach( $mod_types as $mod ) {
 				if ( $tt_ids = $pp_current_user->get_exception_terms( $required_operation, $mod, $post_type, $taxonomy, $args ) ) {
 					if ( 'include' == $mod ) {
 						if ( $tx_additional_ids )
