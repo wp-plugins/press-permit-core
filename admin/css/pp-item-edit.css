@@ -69,15 +69,13 @@ vertical-align:top;
 float: none;
 }
 .pp-select-exception-agents .pp-agents-selection tbody tr td {
-width: 175px;
-padding-right: 15px;
+padding-right: 10px;
 }
-.pp-select-exception-agents .pp-agents-selection select{
+.pp-agents-selection select.pp-new-selection, .pp-agents-selection select.pp_agent_results, select.pp-search-role {
 width: 170px;
 }
-
 .pp-agents-selection tbody tr td {
-padding-right: 50px;
+/*padding-right: 50px;*/
 }
 
 .pp-exc-notes {
@@ -107,4 +105,16 @@ font-weight: bold;
 
 .edit-tags-php #post-body-content #normal-sortables div.postbox {
 margin-right:15px;
+}
+
+div.pp-user-meta-search {
+w-idth:300px;
+margin-top:2px;
+margin-bottom: 2px;
+}
+div.pp-user-meta-search input {
+vertical-align:middle;
+}
+.pp-agents-selection h4 {
+margin-top: 10px;
 }

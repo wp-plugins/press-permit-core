@@ -16,7 +16,7 @@ class PP_QueryInterceptor
 	var $skip_teaser; 	// for use by templates making a direct call to query_posts for non-teased results
 
 	function __construct( $args = array() ) {
-		add_filter( 'posts_clauses_request', array(&$this, 'flt_posts_clauses'), 50, 3 );
+		add_filter( 'posts_clauses_request', array(&$this, 'flt_posts_clauses'), 50, 2 );
 			
 		// use late-firing filter so teaser filtering is also applied to sticky posts (passthrough for logged content administrator)
 		add_filter( 'the_posts', array(&$this, 'flt_the_posts'), 50, 2 );

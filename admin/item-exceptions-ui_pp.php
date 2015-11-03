@@ -20,9 +20,17 @@ class PP_ItemExceptionsUI {
 		
 		global $wp_roles, $pp_current_user;
 		
-		if ( 'post' == $via_item_source )
+		$is_draft_post = false;
+		if ( 'post' == $via_item_source ) {
+			if ( 'read' == $op ) {
+				global $post;
+				$status_obj = get_post_status_object( $post->post_status );
+				if ( ! $status_obj || ( ! $status_obj->public && ! $status_obj->private ) )
+					$is_draft_post = true;
+			}
+			
 			$hierarchical = is_post_type_hierarchical( $via_item_type );
-		else
+		} else
 			$hierarchical = is_taxonomy_hierarchical( $via_item_type );
 		
 		if ( $hierarchical = apply_filters( 'pp_do_assign_for_children_ui', $hierarchical, $via_item_type, $args ) )
@@ -92,8 +100,8 @@ class PP_ItemExceptionsUI {
 					if ( ! isset( $current_exceptions[$op][$agent_type][$agent_id] ) )
 						$current_exceptions[$op][$agent_type][$agent_id] = array();
 				}
-
-				if ( ( 'post' == $via_item_source ) && ( 'attachment' != $via_item_type ) && in_array( $op, array( 'read', 'edit', 'delete' ) ) )
+				
+				if ( ! $is_draft_post && ( 'post' == $via_item_source ) && ( 'attachment' != $via_item_type ) && in_array( $op, array( 'read', 'edit', 'delete' ) ) )
 					$reqd_caps = map_meta_cap( "{$op}_post", 0, $item_id );
 				else
 					$reqd_caps = false;
@@ -117,6 +125,7 @@ class PP_ItemExceptionsUI {
 					'display_stored_selections' => false,
 					'create_dropdowns' => true,
 					'op' => $op,
+					'via_item_type' => $via_item_type,
 				) );
 
 				$pp_agents_ui = pp_init_agents_ui();
@@ -135,7 +144,7 @@ class PP_ItemExceptionsUI {
 			$any_stored = empty( $current_exceptions[$op][$agent_type] ) ? 0 : count($current_exceptions[$op][$agent_type]); 
 			?>
 			<td class="pp-current-item-exceptions" style="width:100%">
-				<div style="overflow:auto;max-height:250px;min-width:<?php echo ( $hierarchical ) ? '400px' : '250px' ?>">
+				<div style="overflow:auto;max-height:325px">
 				<table <?php if ( ! $any_stored ) echo 'style="display:none"'; ?>>
 				<?php if ( $hierarchical ) : ?>
 					<thead>

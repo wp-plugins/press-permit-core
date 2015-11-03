@@ -11,9 +11,53 @@ $orig_search_str = $_GET['pp_agent_search'];
 $search_str = sanitize_text_field($_GET['pp_agent_search']);
 $agent_type = pp_sanitize_key($_GET['pp_agent_type']);
 $agent_id = (int) $_GET['pp_agent_id'];
-$topic = pp_sanitize_key($_GET['pp_topic']);
+$topic = sanitize_text_field( str_replace( '\\\\:', ',', $_GET['pp_topic'] ) );
 $omit_admins = (bool) $_GET['pp_omit_admins'];
 $context = ( isset($_GET['pp_context']) ) ? pp_sanitize_key($_GET['pp_context']) : '';
+
+if ( strpos( $topic, ',' ) ) {
+	$arr_topic = explode( ',', $topic );
+	if ( isset( $arr_topic[1] ) ) {
+		if( taxonomy_exists( $context ) ) {
+			$verified = true;
+			$ops = _pp_can_set_exceptions( $arr_topic[0], $arr_topic[1], array( 'via_item_source' => 'term', 'via_item_type' => $context, 'for_item_source' => 'post' ) ) ? array( 'read' => true ) : array();
+			$operations = apply_filters( 'pp_item_edit_exception_ops', $ops, 'post', $context, $arr_topic[1] );
+			
+			if ( ! in_array( $arr_topic[0], $operations ) )
+				die( -1 );
+			
+		} elseif ( post_type_exists( $arr_topic[1] ) ) {
+			$verified = true;
+			$ops = _pp_can_set_exceptions( $arr_topic[0], $arr_topic[1], array( 'via_item_source' => 'post', 'for_item_source' => 'post' ) ) ? array( 'read' => true ) : array();
+			$operations = apply_filters( 'pp_item_edit_exception_ops', $ops, 'post', $arr_topic[1] );
+			
+			if ( ! in_array( $arr_topic[0], $operations ) )
+				die( -1 );
+		}
+	}
+
+} elseif ( 'member' == $topic ) {
+	$verified = true;
+	$group_type = pp_group_type_exists( $context ) ? $context : 'pp_group';
+	if ( ! pp_has_group_cap( 'pp_manage_members', $agent_id, $group_type ) ) {
+		die( -1 );
+	}
+	
+} elseif ( 'select-author' == $topic ) {
+	$verified = true;
+	
+	$post_type = ( post_type_exists($context) ) ? $context : 'page';
+	
+	$type_obj = get_post_type_object( $post_type );
+	if ( ! current_user_can( $type_obj->cap->edit_others_posts ) ) {
+		die( -1 );
+	}
+}
+
+if ( empty($verified) ) {
+	if ( ! current_user_can( 'pp_manage_members' ) )
+		die( -1 );
+}
 
 if ( ! function_exists('ppc_administrator_roles') ) {
 function ppc_administrator_roles() {			
@@ -36,31 +80,92 @@ function ppc_administrator_roles() {
 if ( 'user' == $agent_type ) {
 	global $wpdb;
 
+	global $current_blog;
+	$blog_prefix = $wpdb->get_blog_prefix($current_blog->blog_id);
+	
 	if ( PP_MULTISITE && apply_filters( 'pp_user_search_site_only', true, compact( 'agent_type', 'agent_id', 'topic', 'context', 'omit_admins' ) ) ) {
-		global $current_blog;
-		$blog_prefix = $wpdb->get_blog_prefix($current_blog->blog_id);
 		$join = "INNER JOIN $wpdb->usermeta AS um ON um.user_id = $wpdb->users.ID AND um.meta_key = '{$blog_prefix}capabilities'";
 	} else {
 		$join = '';
 	}
 
-	$role_filter = sanitize_text_field($_GET['pp_role_search']);
 	$orderby = ( 0 === strpos( $orig_search_str, ' ' ) ) ? 'user_login' : 'user_registered DESC';
 	
-	if ( ! $search_str && ! $role_filter ) {
-		$results = $wpdb->get_results("SELECT ID, user_login, display_name FROM $wpdb->users $join ORDER BY $orderby LIMIT 1000");
-
+	$um_keys = ( ! empty($_GET['pp_usermeta_key'] ) ) ? $_GET['pp_usermeta_key'] : array();
+	$um_vals = ( ! empty($_GET['pp_usermeta_val'] ) ) ? $_GET['pp_usermeta_val'] : array();
+	
+	if ( defined( 'PP_USER_LASTNAME_SEARCH' ) && ! defined( 'PP_USER_SEARCH_FIELD' ) ) {
+		$default_search_field = 'last_name';
+	} elseif( defined( 'PP_USER_SEARCH_FIELD' ) ) {
+		$default_search_field = PP_USER_SEARCH_FIELD;
 	} else {
-		if ( defined('PP_USER_LASTNAME_SEARCH') ) {
-			if ( $search = new WP_User_Query( 'meta_key=last_name&meta_compare=LIKE=&meta_value=%' . $search_str . "%" ) ) {
-				$where = str_replace( "= '%$search_str%'", "LIKE '%$search_str%'", $search->query_where );
-				$results = $wpdb->get_results( "SELECT ID, user_login, display_name $search->query_from $where ORDER BY $orderby LIMIT 1000" );
-			}
-		} elseif ( $search = new WP_User_Query( 'search=*' . $search_str . "*&role=$role_filter" ) ) {
-			$results = $wpdb->get_results( "SELECT ID, user_login, display_name $search->query_from $join $search->query_where ORDER BY $orderby LIMIT 1000" );
+		$default_search_field = '';
+	}
+	
+	if ( $search_str && $default_search_field ) {
+		$um_keys[]= $default_search_field;
+		$um_vals[]= $search_str;
+		$search_str = '';
+	}
+	
+	// discard duplicate selections
+	$used_keys = array();
+	foreach( $um_keys as $i => $keyname ) {
+		if ( ! $keyname || in_array( $keyname, $used_keys ) ) {
+			unset( $um_keys[$i] );
+			unset( $um_vals[$i] );
+		} else {
+			$used_keys []= $keyname;
+		}
+	}
+	
+	$um_keys = array_values( $um_keys );
+	$um_vals = array_values( $um_vals );
+	
+	if ( $search_str ) {
+		$search = new WP_User_Query( 'search=*' . $search_str );
+		$where = $search->query_where;
+		$where = str_replace( "LIKE '%{$search_str}'", "LIKE '%{$search_str}%'", $where );
+	} else {
+		$where = "WHERE 1=1";
+	}
+	
+	if ( $role_filter = sanitize_text_field($_GET['pp_role_search']) ) {
+		global $current_blog;
+		$blog_prefix = $wpdb->get_blog_prefix($current_blog->blog_id);
+		
+		$um_keys[]= "{$blog_prefix}capabilities";
+		$um_vals[]= $role_filter;
+	}
+	
+	// append where clause for meta value criteria	
+	if ( ! empty( $um_keys ) ) {
+		// force search values to be cast as numeric or boolean
+		$force_numeric_keys = ( defined( 'PP_USER_SEARCH_NUMERIC_FIELDS' ) ) ? explode( ',', PP_USER_SEARCH_NUMERIC_FIELDS ) : array();
+		$force_boolean_keys = ( defined( 'PP_USER_SEARCH_BOOLEAN_FIELDS' ) ) ? explode( ',', PP_USER_SEARCH_BOOLEAN_FIELDS ) : array();
+		
+		for( $i = 0; $i < count($um_keys); $i++ ) {			
+			$join .= " INNER JOIN $wpdb->usermeta AS um_{$um_keys[$i]} ON um_{$um_keys[$i]}.user_id = $wpdb->users.ID AND um_{$um_keys[$i]}.meta_key = '{$um_keys[$i]}'";
+			
+			$val = trim( $um_vals[$i] );
+			
+			if ( in_array( $um_keys[$i], $force_numeric_keys ) ) {
+				if ( in_array( $val, array( 'true', 'false', 'yes', 'no' ) ) )
+					$val = (bool) $val;
+				
+				$val = (int) $val;
+			} elseif ( in_array( $val, $force_boolean_keys ) )
+				$val = strval( (bool) $val );
+			
+			if ( $val )
+				$where .= " AND um_{$um_keys[$i]}.meta_value LIKE '%{$val}%'";
+			else
+				$where .= " AND um_{$um_keys[$i]}.meta_value = '{$val}'";
 		}
 	}
 
+	$results = $wpdb->get_results( "SELECT ID, user_login, display_name FROM $wpdb->users $join $where ORDER BY $orderby LIMIT 1000" );
+	
 	if ( $results ) {	
 		$omit_users = array();
 		
@@ -79,11 +184,13 @@ if ( 'user' == $agent_type ) {
 
 		foreach( $results as $row ) {
 			if ( ! in_array( $row->ID, $omit_users ) ) {
-				$title = ( $row->user_login != $row->display_name ) ? " title='" . esc_attr($row->display_name) . "'" : '';
-				if ( defined( 'PP_USER_RESULTS_DISPLAY_NAME' ) )
+				if ( defined( 'PP_USER_RESULTS_DISPLAY_NAME' ) ) {
+					$title = ( $row->user_login != $row->display_name ) ? " title='" . esc_attr($row->user_login) . "'" : '';
 					echo "<option value='$row->ID' class='pp-new-selection'{$title}>$row->display_name</option>";
-				else
+				} else {
+					$title = ( $row->user_login != $row->display_name ) ? " title='" . esc_attr($row->display_name) . "'" : '';
 					echo "<option value='$row->ID' class='pp-new-selection'{$title}>$row->user_login</option>";
+				}
 			}
 		}
 	}

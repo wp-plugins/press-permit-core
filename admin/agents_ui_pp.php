@@ -27,7 +27,7 @@ class PP_AgentsUI {
 			if ( 'pp-edit-permissions' == $pp_plugin_page ) {
 				$args['width'] = 180;
 			}
-		
+			
 			echo '<div class="pp_agents_ajax_wrapper">';
 			$pp_agents_ajax->display( $agent_type, $id_suffix, $item_assignments, $args );
 			echo '</div>';

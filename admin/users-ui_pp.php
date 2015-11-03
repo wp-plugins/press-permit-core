@@ -6,7 +6,58 @@ add_action('manage_users_custom_column', array('PP_AdminUsers', 'flt_users_custo
 
 add_filter('pre_user_query', array('PP_AdminUsers', 'flt_user_query_exceptions' ) );
 
+add_action( 'restrict_manage_users', array('PP_AdminUsers', 'bulk_groups_ui' ) );
+
+PP_AdminUsers::groups_bulk();
+
 class PP_AdminUsers {
+	public static function bulk_groups_ui() {
+		if ( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_users' ) || ! current_user_can( 'pp_manage_members' ) )
+			return;
+		
+		$groups = pp_get_groups( 'pp_group', array( 'skip_meta_types' => array( 'wp_role' ) ) );
+		?>
+
+		<label class="screen-reader-text" for="pp-add-group"><?php esc_html_e( 'Add group&hellip;', 'pp' ) ?></label>
+		<select name="pp-add-group" id="pp-add-group" class="pp-bulk-groups" style="display:inline-block; float:none;">
+			<option value=''><?php esc_html_e( 'Add group&hellip;', 'pp' ) ?></option>
+			<?php 
+			foreach ( $groups as $group_id => $group ) : ?>
+				<option value="<?php echo $group_id; ?>"><?php echo $group->name; ?></option>
+			<?php endforeach; ?>
+		</select><?php submit_button( __( 'Add', 'pp' ), 'secondary', 'addit', false );?>
+
+		<label class="screen-reader-text" for="pp-remove-group"><?php esc_html_e( 'Remove group&hellip;', 'pp' ) ?></label>
+		<select name="pp-remove-group" id="pp-remove-group" class="pp-bulk-groups" style="display:inline-block; float:none;">
+			<option value=''><?php esc_html_e( 'Remove group&hellip;', 'pp' ) ?></option>
+			<?php 
+			foreach ( $groups as $group_id => $group ) : ?>
+				<option value="<?php echo $group_id; ?>"><?php echo $group->name; ?></option>
+			<?php endforeach; ?>
+		</select><?php submit_button( __( 'Remove', 'pp' ), 'secondary', 'removeit', false );
+		
+		wp_nonce_field( 'pp-bulk-groups', 'pp-bulk-groups-nonce' );
+	}
+	
+	public function groups_bulk() {
+		if ( empty( $_REQUEST['users'] ) || ( empty( $_REQUEST['pp-add-group'] ) && empty( $_REQUEST['pp-remove-group'] ) ) )
+			return;
+
+		// Bail if nonce check fails
+		check_admin_referer( 'pp-bulk-groups', 'pp-bulk-groups-nonce' );
+
+		if ( ! current_user_can( 'promote_users' ) || ! current_user_can( 'edit_users' ) || ! current_user_can( 'pp_manage_members' ) )
+			return;
+
+		global $current_user;
+		
+		if ( ! empty( $_REQUEST['pp-add-group'] ) ) {
+			pp_add_group_user( $_REQUEST['pp-add-group'], $_REQUEST['users'] );
+		} elseif ( ! empty( $_REQUEST['pp-remove-group'] ) ) {
+			pp_remove_group_user( $_REQUEST['pp-remove-group'], $_REQUEST['users'] );
+		}
+	}
+	
 	public static function flt_users_columns($defaults) {
 		$defaults['pp_groups'] = __('Groups', 'pp');
 		

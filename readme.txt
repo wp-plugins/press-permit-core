@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.3.1
-Stable tag: 2.2.4
+Stable tag: 2.2.5
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,18 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.5 - 3 Nov 2015 =
+* Feature : Bulk Add / Remove permission groups on Edit Users screen
+* Feature : In PP UI, search for users by First Name / Last Name / Nickname
+* Feature : In PP UI, search for users by any string/numeric/boolean  field specified in constant PP_USER_SEARCH_META_FIELDS (comma separation for multiple user_meta keys)
+* Feature : constant PP_USER_SEARCH_NUMERIC_FIELDS causes corresponding user_meta search entries to be cast to numeric
+* Feature : constant PP_USER_SEARCH_BOOLEAN_FIELDS causes corresponding user_meta search entries to be cast to boolean
+* Feature : constant PP_USER_SEARCH_FIELD specifies a usermeta field to apply main user search box to (deprecates constant PP_USER_LASTNAME_SEARCH) 
+* Change : When constant PP_USER_SEARCH_FIELD or PP_USER_LASTNAME_SEARCH is defined, Find User caption above search box reflects this
+* Change : If constant PP_USER_RESULTS_DISPLAY_NAME is defined, set user_login as title attribute for hover display
+* Change : Reading Exceptions metabox on Edit Post/Page screen does not indicate default access (Yes/No) for WP roles until post is published
+* Perf : Eliminated some redundant javascript output
 
 = 2.2.4 - 28 Sep 2015 =
 * Fixed : PHP Notice for missing action argument broke some Ajax responses

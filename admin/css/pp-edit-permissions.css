@@ -37,10 +37,6 @@ background-color: #eee;
 border-bottom: none;
 }
 
-td.pp-members-current {
-padding-left: 25px;
-}
-
 #pp_add_permission_tabs .agp-unselected_agent, #pp_add_permission_tabs .agp-unselected_agent a {
 background-color: #f1f1f1 !important;
 border-bottom: none;
@@ -314,4 +310,27 @@ margin-right: 2em;
 
 .pp_exceptions_notes ul {
 list-style-type: circle;
+}
+
+.pp-group_members h4 {
+margin-bottom: 0.2em;
+}
+
+#agent_submit_member, .pp-members-current #member, .pp-members-current h4 {
+margin-left: 30px;
+}
+
+#pp_find_users_field {
+margin-left: 0;
+}
+
+#pp-agent-selection_member-wrapper td {
+min-width:230px;
+}
+div.pp-user-meta-search select {
+margin-top:4px;
+margin-bottom:4px;
+}
+div.pp-user-meta-search {
+
 }

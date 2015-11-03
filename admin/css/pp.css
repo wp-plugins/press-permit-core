@@ -160,7 +160,16 @@ color: #777;
 margin-top: 0.4em;
 margin-left: 4em;
 }
-
 option.pp-new-selection {
 color: #00c;
+}
+.pp-bulk-groups {
+margin-left:14px;
+}
+.pp-usermeta-field-more {
+font-size: 20px;
+font-weight: bold;
+}
+.pp-user-meta-search {
+white-space:nowrap;
 }

@@ -20,6 +20,9 @@ class PP_GroupsUpdate {
 		
 		$user_ids = (array) $user_ids;
 		
+		if ( ! pp_get_group( $group_id ) )
+			return;
+		
 		foreach( $user_ids as $user_id ) {
 			if ( ! $user_id )
 				continue;
@@ -44,6 +47,9 @@ class PP_GroupsUpdate {
 		extract( $args, EXTR_SKIP );
 
 		global $wpdb;
+		
+		if ( ! pp_get_group( $group_id ) )
+			return;
 		
 		$members_table = apply_filters( 'pp_use_group_members_table', $wpdb->pp_group_members, $agent_type );
 		
