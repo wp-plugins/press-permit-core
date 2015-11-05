@@ -50,8 +50,8 @@ Initial production release
 == Changelog ==
 
 = 2.2.6 - 5 Nov 2015 =
-* Fixed : On Edit Page screen, User and Groups searches yielded no results if PP Collaborative Editing extension was inactive
-* Fixed : On Edit Page screen, User and Groups search UI had results box and search button too narrow
+* Fixed : On Edit Page screen, User and Groups searches yielded no results if PP Collaborative Editing extension was inactive (since 2.2.5)
+* Fixed : On Edit Page screen, User and Groups search UI had results box and search button too narrow (since 2.2.5)
 * Fixed : Extra gap in Permissions menu when accessing Edit Group/User Permissions screen
 * Change : If custom fields are not defined for user_meta search, UI provides a maximum of three key/value inputs
 * Change : User_meta search input box title attribute mentions the PP_USER_SEARCH_META_FIELDS constant (for logged Administrators if "Display hints" and "Advanced" settings are enabled)
