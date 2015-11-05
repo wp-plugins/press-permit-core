@@ -108,7 +108,6 @@ margin-right:15px;
 }
 
 div.pp-user-meta-search {
-w-idth:300px;
 margin-top:2px;
 margin-bottom: 2px;
 }
@@ -117,4 +116,7 @@ vertical-align:middle;
 }
 .pp-agents-selection h4 {
 margin-top: 10px;
+}
+.pp-agents-selection td select {
+width:170px;
 }

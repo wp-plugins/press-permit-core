@@ -173,3 +173,5 @@ font-weight: bold;
 .pp-user-meta-search {
 white-space:nowrap;
 }
+
+#toplevel_page_pp-groups ul li a[href*="pp-edit-permissions"] {display:none;}

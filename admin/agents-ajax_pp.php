@@ -74,7 +74,9 @@ class PP_Agents_Ajax {
 			if ( isset( $fields[$default_search_field] ) )
 				unset( $fields[$default_search_field] );
 			
-			for( $i = 0; $i < 6; $i++ ) :?>
+			$ilim = ( defined('PP_USER_SEARCH_META_FIELDS') ) ? 6 : 3;
+			
+			for( $i = 0; $i < $ilim; $i++ ) :?>
 				<div class="pp-user-meta-search" <?php if ( $i > 0 && empty( $_GET["pp_search_user_meta_key_{$i}_{$id_suffix}"] ) ) echo ' style="display:none;"';?>>
 				<select id="pp_search_user_meta_key_<?php echo $i;?>_<?php echo $id_suffix;?>">
 				<option value=""><?php _e( '(user field)', 'pp' );?></option>
@@ -86,8 +88,8 @@ class PP_Agents_Ajax {
 				?>
 				</select>
 				&nbsp;
-				<input id="pp_search_user_meta_val_<?php echo $i;?>_<?php echo $id_suffix;?>" type="text" <?php if ( empty( $_GET["pp_search_user_meta_key_{$i}_{$id_suffix}"] ) ) echo 'style="display:none"';?> size="8" />
-				<?php if( $i < 5 ) :?>
+				<input id="pp_search_user_meta_val_<?php echo $i;?>_<?php echo $id_suffix;?>" type="text" <?php if ( empty( $_GET["pp_search_user_meta_key_{$i}_{$id_suffix}"] ) ) echo 'style="display:none"';?> title="<?php echo $title;?>" size="8" />
+				<?php if( $i < $ilim - 1 ) :?>
 				&nbsp;<span class="pp-usermeta-field-more" <?php if ( empty( $_GET["pp_search_user_meta_key_{$i}_{$id_suffix}"] ) ) echo 'style="display:none"';?>>+</span>
 				<?php endif;?>
 				</div>
@@ -180,39 +182,29 @@ class PP_Agents_Ajax {
 	function register_ajax_js( $agent_type, $id_sfx, $context = '', $agent_id = 0, $args = array() ) {
 		global $wp_scripts;
 		
-		static $exceptions_done;
-		
 		// note: this is also done in PP_AdminFiltersItemUI() constructor
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
-		
-		if ( empty($exceptions_done) ) {
-			wp_enqueue_script( 'pp_listbox', PP_URLPATH . "/admin/js/listbox{$suffix}.js", array('jquery', 'jquery-form'), PPC_VERSION, true );
-			$wp_scripts->in_footer []= 'pp_listbox';  // otherwise it will not be printed in footer, as of WP 3.2.
-		}
+		wp_enqueue_script( 'pp_listbox', PP_URLPATH . "/admin/js/listbox{$suffix}.js", array('jquery', 'jquery-form'), PPC_VERSION, true );
+		$wp_scripts->in_footer []= 'pp_listbox';  // otherwise it will not be printed in footer, as of WP 3.2.
 		
 		if ( ! empty($args['create_dropdowns']) ) {
-			if ( empty($exceptions_done) ) {
-				wp_localize_script( 'pp_listbox', 'ppListbox', array( 'omit_admins' => '1', 'metagroups' => 1 ) );
-			
-				wp_enqueue_script( 'pp_exception_select', PP_URLPATH . "/admin/js/agent-exception-select_pp{$suffix}.js", array('jquery', 'jquery-form'), PPC_VERSION, true );
+			wp_localize_script( 'pp_listbox', 'ppListbox', array( 'omit_admins' => '1', 'metagroups' => 1 ) );
+		
+			wp_enqueue_script( 'pp_agent_select', PP_URLPATH . "/admin/js/agent-exception-select_pp{$suffix}.js", array('jquery', 'jquery-form'), PPC_VERSION, true );
 
-				$arr = array_merge( $args, array( 'agent_type' => $agent_type, 'ajaxurl' => admin_url(''), 'ajaxhandler' => 'got_ajax_dropdowns' ) );
-				wp_localize_script( 'pp_exception_select', 'ppException', $arr );
-				
-				$wp_scripts->in_footer []= 'pp_exception_select'; // otherwise it will not be printed in footer, as of WP 3.2.1
-			}
-			
-			$exceptions_done = true;
+			$arr = array_merge( $args, array( 'agent_type' => $agent_type, 'ajaxurl' => admin_url('') ) );
+			wp_localize_script( 'pp_agent_select', 'ppException', $arr );
 		} else {
 			wp_localize_script( 'pp_listbox', 'ppListbox', array( 'omit_admins' => '0', 'metagroups' => 0 ) );
 			
 			if ( ! do_action( 'pp_override_agent_select_js', false ) )
-				wp_enqueue_script( 'pp_override_agent_select', PP_URLPATH . "/admin/js/agent-select_pp{$suffix}.js", array('jquery', 'jquery-form'), PPC_VERSION, true );
-			
-			wp_localize_script( 'pp_override_agent_select', 'PPAgentSelect', array( 'adminurl' => admin_url(''), 'ajaxhandler' => 'got_ajax_listbox' ) );
-			
-			$wp_scripts->in_footer []= 'pp_override_agent_select'; // otherwise it will not be printed in footer, as of WP 3.2.1
+				wp_enqueue_script( 'pp_agent_select', PP_URLPATH . "/admin/js/agent-select_pp{$suffix}.js", array('jquery', 'jquery-form'), PPC_VERSION, true );
 		}
+	
+		$wp_scripts->in_footer []= 'pp_agent_select'; // otherwise it will not be printed in footer, as of WP 3.2.1
+		
+		$ajaxhandler = ( ! empty($args['create_dropdowns']) ) ? 'got_ajax_dropdowns' : 'got_ajax_listbox';
+		wp_localize_script( 'pp_agent_select', 'PPAgentSelect', array( 'adminurl' => admin_url(''), 'ajaxhandler' => $ajaxhandler ) );
 
 		if ( ! $this->agents_js_queue ) {
 			$this->agents_js_queue = array();
@@ -220,10 +212,6 @@ class PP_Agents_Ajax {
 		}
 		
 		$suppress_selection_js = ! empty($args['suppress_selection_js']);
-		
-		if ( ! empty( $args['via_item_type'] ) && taxonomy_exists($args['via_item_type']) )
-			$context = ( $context ) ? $context . $args['via_item_type'] : $args['via_item_type'];
-		
 		$this->agents_js_queue []= compact( 'agent_type', 'id_sfx', 'context', 'agent_id', 'suppress_selection_js' );
 	}
 	

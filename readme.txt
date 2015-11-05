@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.3.1
-Stable tag: 2.2.5
+Stable tag: 2.2.6
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,13 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.6 - 5 Nov 2015 =
+* Fixed : On Edit Page screen, User and Groups searches yielded no results if PP Collaborative Editing extension was inactive
+* Fixed : On Edit Page screen, User and Groups search UI had results box and search button too narrow
+* Fixed : Extra gap in Permissions menu when accessing Edit Group/User Permissions screen
+* Change : If custom fields are not defined for user_meta search, UI provides a maximum of three key/value inputs
+* Change : User_meta search input box title attribute mentions the PP_USER_SEARCH_META_FIELDS constant (for logged Administrators if "Display hints" and "Advanced" settings are enabled)
 
 = 2.2.5 - 3 Nov 2015 =
 * Feature : Bulk Add / Remove permission groups on Edit Users screen
