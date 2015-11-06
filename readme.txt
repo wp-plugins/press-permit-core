@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.3.1
-Stable tag: 2.2.6
+Stable tag: 2.2.7
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,9 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.7 - 6 Nov 2015 =
+* Fixed : On Network installations, PP User Search returned no results unless a user meta search was also specified (since 2.2.5)
 
 = 2.2.6 - 5 Nov 2015 =
 * Fixed : On Edit Page screen, User and Groups searches yielded no results if PP Collaborative Editing extension was inactive (since 2.2.5)

@@ -152,7 +152,7 @@ class PP_Agents_Ajax {
 		<tr>
 		<?php do_action( 'pp_agents_selection_ui_select_pre', $id_suffix ); ?>		
 
-		<td><button type="button" id="select_agents_<?php echo $id_suffix;?>" class="pp_add" style="margin-left:106px<?php if( ! $multi_select ):?>;display:none;<?php endif;?>"><?php echo $label_select;?></button></td>
+		<td><button type="button" id="select_agents_<?php echo $id_suffix;?>" class="pp_add" style="float:right<?php if( ! $multi_select ):?>;display:none;<?php endif;?>"><?php echo $label_select;?></button></td>
 		
 		<?php if( $display_stored_selections) : ?>
 		<td class="pp-members-current"><button type="button" id="unselect_agents_<?php echo $id_suffix;?>" class="pp_remove"><?php echo $label_unselect;?></button></td>

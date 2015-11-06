@@ -88,7 +88,7 @@ if ( 'user' == $agent_type ) {
 	} else {
 		$join = '';
 	}
-
+	
 	$orderby = ( 0 === strpos( $orig_search_str, ' ' ) ) ? 'user_login' : 'user_registered DESC';
 	
 	$um_keys = ( ! empty($_GET['pp_usermeta_key'] ) ) ? $_GET['pp_usermeta_key'] : array();
@@ -123,9 +123,7 @@ if ( 'user' == $agent_type ) {
 	$um_vals = array_values( $um_vals );
 	
 	if ( $search_str ) {
-		$search = new WP_User_Query( 'search=*' . $search_str );
-		$where = $search->query_where;
-		$where = str_replace( "LIKE '%{$search_str}'", "LIKE '%{$search_str}%'", $where );
+		$where = "WHERE (user_login LIKE '%{$search_str}%' OR user_nicename LIKE '%{$search_str}%')";
 	} else {
 		$where = "WHERE 1=1";
 	}
@@ -163,7 +161,7 @@ if ( 'user' == $agent_type ) {
 				$where .= " AND um_{$um_keys[$i]}.meta_value = '{$val}'";
 		}
 	}
-
+	
 	$results = $wpdb->get_results( "SELECT ID, user_login, display_name FROM $wpdb->users $join $where ORDER BY $orderby LIMIT 1000" );
 	
 	if ( $results ) {	
