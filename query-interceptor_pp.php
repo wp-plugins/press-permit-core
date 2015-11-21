@@ -17,7 +17,7 @@ class PP_QueryInterceptor
 
 	function __construct( $args = array() ) {
 		add_filter( 'posts_clauses_request', array(&$this, 'flt_posts_clauses'), 50, 2 );
-			
+		
 		// use late-firing filter so teaser filtering is also applied to sticky posts (passthrough for logged content administrator)
 		add_filter( 'the_posts', array(&$this, 'flt_the_posts'), 50, 2 );
 
@@ -115,8 +115,15 @@ class PP_QueryInterceptor
 			
 		//d_echo( "flt_posts_clauses input: " );
 		//dump($clauses);
-
-		$post_type = ( is_object($_wp_query) && isset($_wp_query->post_type) ) ? $_wp_query->post_type : '';
+		
+		$post_type = '';
+		if ( is_object($_wp_query) ) {
+			if ( ! empty($_wp_query->post_type) )
+				$post_type = $_wp_query->post_type;
+			elseif ( isset($_wp_query->query) && isset($_wp_query->query['post_type']) )
+				$post_type = $_wp_query->query['post_type'];
+		}
+			
 		$post_types = apply_filters( 'pp_main_posts_clauses_types', $post_type );
 		$clauses['where'] = apply_filters( 'pp_main_posts_clauses_where', $clauses['where'] );
 		

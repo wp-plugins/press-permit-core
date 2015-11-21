@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.3.1
-Stable tag: 2.2.7
+Stable tag: 2.2.8
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,14 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.8 - 20 Nov 2015 =
+* Compat : Advanced Custom Fields and WPML - ACF metaboxes were not displayed on Edit Post screen if translation was enabled for fields
+* Change : Streamlined Bulk Groups UI on Users screen (single groups dropdown for Add/Remove)
+* Change : Added an option on Advanced tab to disable Bulk Groups dropdown on Users screen
+* Change : Don't display Bulk Groups dropdown if no groups are defined
+* Fixed : Removed extra top margin in Permission Groups box on Edit User screen
+* Lang : Updated .po file
 
 = 2.2.7 - 6 Nov 2015 =
 * Fixed : On Network installations, PP User Search returned no results unless a user meta search was also specified (since 2.2.5)

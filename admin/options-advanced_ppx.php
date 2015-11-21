@@ -53,6 +53,7 @@ class PP_Options_Advanced {
 				'display_extension_hints' => 		__('Display Extension Hints', 'pp'),
 				'dynamic_wp_roles' =>				__('Detect Dynamically Mapped WP Roles', 'pp'),
 				'non_admins_set_read_exceptions' => __('Non-Administrators can set Reading Exceptions for their editable posts', 'pp'),
+				'users_bulk_groups' =>				__('Bulk Add / Remove Groups on Users Screen', 'pp'),
 			) );
 		}
 		
@@ -67,7 +68,7 @@ class PP_Options_Advanced {
 				'anonymous' =>			array( 'anonymous_unfiltered', 'suppress_administrator_metagroups' ),
 				'permissions_admin' =>  array( 'non_admins_set_read_exceptions' ),
 				'role_integration' =>	array( 'dynamic_wp_roles' ),
-				'misc' =>				array( 'user_search_by_role', 'display_hints', 'display_extension_hints' ),
+				'misc' =>				array( 'users_bulk_groups', 'user_search_by_role', 'display_hints', 'display_extension_hints' ),
 			) );
 		}
 		
@@ -140,6 +141,7 @@ class PP_Options_Advanced {
 				</td></tr>
 			<?php endif; // any options accessable in this section
 		
+		
 			$section = 'custom_statuses';							// --- CUSTOM POST STATUSES SECTION ---
 			if ( ! empty( $ui->form_options[$tab][$section] ) ) : ?>
 				<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section];?></th><td>
@@ -162,6 +164,25 @@ class PP_Options_Advanced {
 				</td></tr>
 			<?php endif; // any options accessable in this section
 
+			
+			$section = 'misc';										// --- MISC SECTION ---
+			if ( ! empty( $ui->form_options[$tab][$section] ) ) : ?>
+				<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section];?></th><td>
+				<?php
+				$ui->option_checkbox( 'users_bulk_groups', $tab, $section, '' );
+				
+				$hint =  __('Display a role dropdown alongside the user search input box to narrow results.', 'pp');
+				$ui->option_checkbox( 'user_search_by_role', $tab, $section, $hint );
+				
+				$hint =  __('Display additional descriptions in role assignment and options UI.', 'pp');
+				$ui->option_checkbox( 'display_hints', $tab, $section, $hint );
+				
+				$hint =  __('Display descriptive captions for additional functionality provided by missing or deactivated extension plugins (Press Permit Pro package).', 'pp');
+				$ui->option_checkbox( 'display_extension_hints', $tab, $section, $hint );
+				?>
+				</td></tr>
+			<?php endif; // any options accessable in this section
+			
 			
 			$section = 'capabilities';								// --- PP CAPABILITIES SECTION ---
 			?>
@@ -198,6 +219,7 @@ class PP_Options_Advanced {
 					'pp_manage_settings'	=> __( 'Modify these Press Permit settings', 'pp' ),
 					'pp_unfiltered'			=> __( 'Press Permit does not apply any supplemental roles or exceptions to limit or expand viewing or editing access', 'pp' ),
 					'pp_administer_content'	=> __( 'PP implicitly grants capabilities for all post types and statuses, but does not apply exceptions', 'pp' ),
+					'pp_associate_any_page'	=> __( '(PP Pro capability)', 'pp' ),
 					'pp_create_groups'		=> __( 'Can create Permission Groups', 'pp' ),
 					'pp_edit_groups'		=> __( 'Can edit all Permission Groups (barring Exceptions)', 'pp' ),
 					'pp_delete_groups'		=> __( 'Can delete Permission Groups', 'pp' ),
@@ -250,24 +272,8 @@ class PP_Options_Advanced {
 	
 				</td></tr>
 			<?php
+		
 			
-			$section = 'misc';										// --- MISC SECTION ---
-			if ( ! empty( $ui->form_options[$tab][$section] ) ) : ?>
-				<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section];?></th><td>
-				<?php
-				$hint =  __('Display a role dropdown alongside the user search input box to narrow results.', 'pp');
-				$ui->option_checkbox( 'user_search_by_role', $tab, $section, $hint );
-				
-				$hint =  __('Display additional descriptions in role assignment and options UI.', 'pp');
-				$ui->option_checkbox( 'display_hints', $tab, $section, $hint );
-				
-				$hint =  __('Display descriptive captions for additional functionality provided by missing or deactivated extension plugins (Press Permit Pro package).', 'pp');
-				$ui->option_checkbox( 'display_extension_hints', $tab, $section, $hint );
-				?>
-				</td></tr>
-			<?php endif; // any options accessable in this section
-		
-		
 			$section = 'role_integration';							// --- ROLE INTEGRATION SECTION ---
 			if ( ! empty( $ui->form_options[$tab][$section] ) ) : ?>
 				<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section];?></th><td>

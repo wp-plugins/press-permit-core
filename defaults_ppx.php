@@ -11,6 +11,7 @@ function ppx_default_options( $defaults = array() ) {
 		'user_search_by_role' => 0,
 		'anonymous_unfiltered' => 0,
 		'suppress_administrator_metagroups' => 0,
+		'users_bulk_groups' => 1,
 	);
 	
 	return apply_filters( 'ppx_default_options', array_merge( $defaults, $extra ) );
