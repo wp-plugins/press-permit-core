@@ -451,7 +451,7 @@ class PP_GroupsUI {
 		elseif ( ! $current_tab = get_user_option( 'pp-permissions-tab' ) )
 			$current_tab = ( isset($perms['roles']) ) ? 'pp-add-roles' : 'pp-add-exceptions';
 		
-		if ( ( $args['agent']->metagroup_type == 'wp_role' ) && ! in_array( $args['agent']->metagroup_id, array( 'wp_anon', 'wp_all' ) ) ) {
+		if ( ( $args['agent']->metagroup_type != 'wp_role' ) || ! in_array( $args['agent']->metagroup_id, array( 'wp_anon', 'wp_all' ) ) ) {
 			$perms['clone'] = __('Clone', 'pp');
 		}
 

@@ -49,6 +49,9 @@ Initial production release
 
 == Changelog ==
 
+= 2.2.9-dev =
+* Change : Supplemental Roles and Exceptions can be cloned to custom Permissions Groups
+
 = 2.2.8 - 20 Nov 2015 =
 * Compat : Advanced Custom Fields and WPML - ACF metaboxes were not displayed on Edit Post screen if translation was enabled for fields
 * Change : Streamlined Bulk Groups UI on Users screen (single groups dropdown for Add/Remove)
